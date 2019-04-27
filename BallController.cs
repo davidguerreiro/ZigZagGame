@@ -74,6 +74,8 @@ public class BallController : MonoBehaviour
         if ( ! Physics.Raycast( transform.position, Vector3.down, 1f ) ) {
             gameOver = true;
             rb.velocity = new Vector3( 0, -25f, 0 );
+
+            Camera.main.GetComponent<CameraFollow>().gameOver = true;
         }
     }
 
