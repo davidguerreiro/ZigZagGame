@@ -7,6 +7,7 @@ public class BallController : MonoBehaviour
     [SerializeField]
     private float speed;                    // Ball's speed.
     bool started;                           // Wheter the game has started or not.
+    bool gameOver;                          // Wheter the game enters in game over mode.
 
     Rigidbody rb;
 
@@ -27,9 +28,12 @@ public class BallController : MonoBehaviour
     // Update is called once per frame.
     void Update()
     {
-        if ( Input.GetMouseButtonDown(0) ) {
-            SwitchDirection();
-        }
+        // Lisen for user input.
+        InputConroller();
+
+        // Check if the ball is in the platform.
+        CheckPlatformDown();
+    
     }
 
     /// <summary>
@@ -57,8 +61,19 @@ public class BallController : MonoBehaviour
         }
 
         // Change ball direction when clicking.
-        if ( Input.GetMouseButtonDown(0) ) {
+        if ( Input.GetMouseButtonDown(0) && ! gameOver ) {
             SwitchDirection();
+        }
+    }
+
+    /// <summary>
+    /// Drop a ray down to check if the ball is 
+    /// still over the platform.
+    /// </summary>
+    private void CheckPlatformDown() {
+        if ( ! Physics.Raycast( transform.position, Vector3.down, 1f ) ) {
+            gameOver = true;
+            rb.velocity = new Vector3( 0, -25f, 0 );
         }
     }
 
@@ -68,5 +83,6 @@ public class BallController : MonoBehaviour
     private void Init() {
         rb.velocity = new Vector3( speed, 0, 0 );
         started = false;
+        gameOver = false;
     }
 }
