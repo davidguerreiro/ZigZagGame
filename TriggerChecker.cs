@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class TriggerChecker : MonoBehaviour
 {
+
+    Rigidbody rigibody;                 // Rigibody component.s
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Init();
     }
 
     // Update is called once per frame
@@ -31,7 +34,16 @@ public class TriggerChecker : MonoBehaviour
     /// Make the platform fall down.
     /// </summary>
     private void FallDown() {
-        GetComponentInParent<Rigidbody>().useGravity = true;
+        rigibody.useGravity = true;
+        rigibody.isKinematic = false;
+
         Destroy( transform.parent.gameObject, 2f );
+    }
+
+    /// <summary>
+    /// Initialise trigger checker class.
+    /// </summary>
+    private void Init() {
+        rigibody = GetComponentInParent<Rigidbody>();
     }
 }
