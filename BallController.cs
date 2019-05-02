@@ -8,6 +8,7 @@ public class BallController : MonoBehaviour
     private float speed;                    // Ball's speed.
     bool started;                           // Wheter the game has started or not.
     bool gameOver;                          // Wheter the game enters in game over mode.
+    public GameObject particle;             // Particle effect used when a diamond is collected by the user.
 
     Rigidbody rb;
 
@@ -95,7 +96,9 @@ public class BallController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if ( other.tag == "Diamond" ) {
+            GameObject particles = Instantiate( particle, other.gameObject.transform.position, Quaternion.identity );
             Destroy( other.gameObject );
+            Destroy( particles, 1f );
         }
     }
 }
