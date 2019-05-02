@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlatformSpawner : MonoBehaviour
 {
-    public GameObject platform;
+    public GameObject platform;                 // Platforms gameObject.
+    public GameObject diamond;                  // Diamonds gameObject.
     Vector3 lastPos;
     float size;
     bool gameOver;
@@ -40,6 +41,21 @@ public class PlatformSpawner : MonoBehaviour
         pos.x += size;
         lastPos = pos;
         Instantiate( platform, pos, Quaternion.identity );
+
+        // instantiate diamond.
+        SpawnDiamond( pos );
+    }
+
+    /// <summary>
+    /// Spawn a diamond
+    /// </summary>
+    /// <param name="pos">vector3 - current instantiate platform position to instantiate the diamond</param>
+    private void SpawnDiamond( Vector3 pos ) {
+        int rand = Random.Range( 0, 4 );
+
+        if ( rand < 1 ) {
+            Instantiate( diamond, new Vector3( pos.x, pos.y + 1, pos.z ), diamond.transform.rotation );
+        }
     }
 
     /// <summary>
@@ -50,6 +66,9 @@ public class PlatformSpawner : MonoBehaviour
         pos.z += size;
         lastPos = pos;
         Instantiate( platform, pos, Quaternion.identity );
+
+        // instantiate diamond
+        SpawnDiamond( pos );
     }
 
     /// <summary>
