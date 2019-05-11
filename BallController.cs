@@ -77,6 +77,8 @@ public class BallController : MonoBehaviour
             rb.velocity = new Vector3( 0, -25f, 0 );
 
             Camera.main.GetComponent<CameraFollow>().gameOver = true;
+
+            GameManager.instance.GameOver();
         }
     }
 
@@ -87,6 +89,9 @@ public class BallController : MonoBehaviour
         rb.velocity = new Vector3( speed, 0, 0 );
         started = false;
         gameOver = false;
+
+        // start game.
+        GameManager.instance.StartGame();
     }
 
     /// <summary>
