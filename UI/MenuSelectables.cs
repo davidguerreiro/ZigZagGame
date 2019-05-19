@@ -4,23 +4,31 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class MenuSelectables : MonoBehaviour
+public class MenuSelectables : MonoBehaviour, ISelectHandler , IPointerEnterHandler
 {
-    public GameObject cursor;                           // Selectable Cursor.
-    private MenuCursor cursorClass;
+    public GameObject cursor;                           // Selectable cursor.
+    private MenuCursor cursorClass;                     // Selectable cursor class component.
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Init();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    /// <summary>
+    /// Display cursor when item is highlight with the mouse.
+    /// </summary>
+    public void OnPointerEnter( PointerEventData eventData ) {
+        SetItemSelectable();
     }
 
+    /// <summary>
+    /// Display cursor when item is selected by keyboard controls.
+    /// </summary>
+    public void OnSelect( BaseEventData eventData ) {
+        SetItemSelectable();
+    }
+ 
     /// <summary>
     /// Initialise class.
     /// </summary>
@@ -36,6 +44,16 @@ public class MenuSelectables : MonoBehaviour
     /// Set this item selectable.
     /// </summary>
     private void SetItemSelectable() {
+
+        // disable all menu cursors.
         GameObject[] cursors = GameObject.FindGameObjectsWithTag( "menu_cursor");
+
+        foreach( GameObject localCursor in cursors ) {
+            localCursor.SetActive( false );
+        }
+
+        // active current selectable cursor.
+        cursor.SetActive( true );
+        cursorClass.ReproduceSelectableSound();
     }
 }

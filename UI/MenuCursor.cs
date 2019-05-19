@@ -11,6 +11,15 @@ public class MenuCursor : MonoBehaviour
     private bool inAnimation;                           // Animation Flag - wheter the cursor is in an animation coroutine or not.
     private AudioSource audioSource;                    // Audio source component.
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        Init();
+        inAnimation = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
