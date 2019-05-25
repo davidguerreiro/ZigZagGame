@@ -8,7 +8,7 @@ public class MenuCursor : MonoBehaviour
     public float amplitude = 20f;                       // Static animation amplitude.
     private float originPosition;                       // Static animation origin position.
     private float maxPosition;                          // Static animation maximun position.
-    private bool inAnimation;                           // Animation Flag - wheter the cursor is in an animation coroutine or not.
+    public bool inAnimation;                           // Animation Flag - wheter the cursor is in an animation coroutine or not.
     private AudioSource audioSource;                    // Audio source component.
 
     /// <summary>

@@ -8,6 +8,7 @@ public class MenuSelectables : MonoBehaviour, ISelectHandler , IPointerEnterHand
 {
     public GameObject cursor;                           // Selectable cursor.
     private MenuCursor cursorClass;                     // Selectable cursor class component.
+    public bool onLoaded = false;                      // Flag to fix the issue of the cursor sound when initialise.          
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +55,33 @@ public class MenuSelectables : MonoBehaviour, ISelectHandler , IPointerEnterHand
 
         // active current selectable cursor.
         cursor.SetActive( true );
-        cursorClass.ReproduceSelectableSound();
+        cursorClass.inAnimation = false;
+
+        // update description title and description content based on option chosen.
+        UpdateDesc();
+
+        if ( onLoaded ) {
+            cursorClass.ReproduceSelectableSound();
+        }
+
+        onLoaded = true;
+    }
+
+    /// <summary>
+    /// Update title and description in
+    /// the description panel based on the
+    /// option chosen.
+    /// </summary>
+    private void UpdateDesc() {
+
+        if ( gameObject.name == "Selectable1" ) {
+            MainMenuManager.instance.UpdateDescTitle( "Standard Mode" );
+            MainMenuManager.instance.UpdateDescContent( " - Try to complete 50 levels and beat the game !" );
+        }
+
+        if ( gameObject.name == "Selectable2" ) {
+            MainMenuManager.instance.UpdateDescTitle( "Survival Mode" );
+            MainMenuManager.instance.UpdateDescContent( " - No limit ! Survive and get the best score possible !" );
+        }
     }
 }
