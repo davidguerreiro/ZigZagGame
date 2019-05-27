@@ -78,7 +78,7 @@ public class BallController : MonoBehaviour
 
             Camera.main.GetComponent<CameraFollow>().gameOver = true;
 
-            GameManager.instance.GameOver();
+            // GameManager.instance.GameOver();
         }
     }
 
@@ -91,7 +91,7 @@ public class BallController : MonoBehaviour
         gameOver = false;
 
         // start game.
-        GameManager.instance.StartGame();
+        // GameManager.instance.StartGame();
     }
 
     /// <summary>

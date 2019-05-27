@@ -5,7 +5,7 @@ using UnityEngine;
 public class TriggerChecker : MonoBehaviour
 {
 
-    Rigidbody rigibody;                 // Rigibody component.s
+    Rigidbody rigibody;                 // Rigibody component.
 
     // Start is called before the first frame update
     void Start()
