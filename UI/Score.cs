@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     private Text scoreText;                     // Score text component.
+    public int scoreLimit = 999;                // Score limit.
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,10 @@ public class Score : MonoBehaviour
     public void UpdateScore( int amount ) {
         int currentScore = int.Parse( scoreText.text );
         currentScore += amount;
+
+        if ( currentScore > scoreLimit ) {
+            currentScore = scoreLimit;
+        }
 
         scoreText.text = currentScore.ToString();
     }
