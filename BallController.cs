@@ -102,6 +102,7 @@ public class BallController : MonoBehaviour
     {
         if ( other.tag == "Diamond" ) {
             GameObject particles = Instantiate( particle, other.gameObject.transform.position, Quaternion.identity );
+            UIManager.instance.UpdateScore( 1 );
             Destroy( other.gameObject );
             Destroy( particles, 1f );
         }
