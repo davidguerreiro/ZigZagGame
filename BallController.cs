@@ -78,7 +78,7 @@ public class BallController : MonoBehaviour
 
             Camera.main.GetComponent<CameraFollow>().gameOver = true;
 
-            // GameManager.instance.GameOver();
+            GameManager.instance.PlayerDefeated();
         }
     }
 

@@ -55,7 +55,6 @@ public class Timer : MonoBehaviour
         float currentHours = float.Parse( hours.text );
 
         currentMiliseconds += Mathf.Round( ( Time.deltaTime * 1000f ) / 10f );
-        //Debug.Log( Mathf.Round( currentMiliseconds / 10f ) );
         miliseconds.text = currentMiliseconds.ToString();
 
         // update seconds.

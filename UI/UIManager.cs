@@ -7,9 +7,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {  
     public static UIManager instance;               // Public instance for static calls from other components.
-    public GameObject TopBar;                       // UI top bar component.
-    public GameObject scorePanel;                   // UI score panel component.
-    public GameObject startText;                    // UI start text component.
+    public GameObject TopBar;                       // UI top bar gameObject.
+    public GameObject scorePanel;                   // UI score panel gameObject.
+    public GameObject defeatedPanel;                // UI defeated panel gameObject.
+    public GameObject startText;                    // UI start text gameObject.
     public Score score;                             // Score class.
     public Lifes lifes;                             // Lifes class.
 
@@ -54,5 +55,13 @@ public class UIManager : MonoBehaviour
     /// <param name="amount">int - amount to update</param>
     public void UpdateLifes( int amount ) {
         lifes.UpdateLifes( amount );
+    }
+
+    /// <summary>
+    /// Display player defeated
+    /// panel.
+    /// </summary>
+    public void DisplayDefeatedPanel() {
+        defeatedPanel.GetComponent<DefeatedPanel>().DisplayPanel();
     }
 }
