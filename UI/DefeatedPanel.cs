@@ -26,11 +26,12 @@ public class DefeatedPanel : MonoBehaviour
 
     /// <summary>
     /// Display defeated panel
-    /// on screen.
+    /// on the screen.
     /// </summary>
     public void DisplayPanel() {
         StartCoroutine( MovePanel() );
         // StartCoroutine( FadeInPanel() );
+        
     }
 
     /// <summary>
