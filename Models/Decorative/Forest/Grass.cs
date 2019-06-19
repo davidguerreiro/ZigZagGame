@@ -37,15 +37,12 @@ public class Grass : MonoBehaviour
             grades = ( frontDirection ) ? 1 : - 1;
 
             transform.Rotate( grades, 0, 0 );
-            Debug.Log( transform.rotation.x );
 
             // check if rotation direction needs to change.
             if ( transform.rotation.x > 0.001f ) {
                 frontDirection = false;
-                //yield return new WaitForSeconds( 0.1f );
             } else if ( transform.rotation.x < - 0.001f ) {
                 frontDirection = true;
-                //yield return new WaitForSeconds( 0.1f );
             }
 
             yield return new WaitForSeconds( 0.3f );
