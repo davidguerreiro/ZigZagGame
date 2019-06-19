@@ -47,7 +47,6 @@ public class Grass : MonoBehaviour
 
             yield return new WaitForSeconds( 0.3f );
             yield return null;
-            
         }
         
     }
