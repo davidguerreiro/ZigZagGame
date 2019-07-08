@@ -7,7 +7,7 @@ public class Grass : MonoBehaviour
     public bool animated = true;                                // Wheter the grass is animated.
     public bool frontDirection = true;                          // Initial rotation direction.
     private float amplitude = 3f;                               // Rotation movement amplitude.
-    private float speed = 0.8f;                                   // Animation speed.
+    private float speed = 0.8f;                                 // Animation speed.
     private float max;                                          // Rotation max value.                  
     private float min;                                          // Rotation min value.
 

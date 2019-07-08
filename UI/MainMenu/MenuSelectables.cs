@@ -27,6 +27,7 @@ public class MenuSelectables : MonoBehaviour, ISelectHandler , IPointerEnterHand
     /// Display cursor when item is selected by keyboard controls.
     /// </summary>
     public void OnSelect( BaseEventData eventData ) {
+        Debug.Log( "entered here" + gameObject.name );
         SetItemSelectable();
     }
  
@@ -76,12 +77,12 @@ public class MenuSelectables : MonoBehaviour, ISelectHandler , IPointerEnterHand
 
         if ( gameObject.name == "Selectable1" ) {
             MainMenuManager.instance.UpdateDescTitle( "Standard Mode" );
-            MainMenuManager.instance.UpdateDescContent( " - Try to complete 50 levels and beat the game !" );
+            MainMenuManager.instance.UpdateDescContent( "The Vertex is destroying the world. Would you be able to discover the mistery behind ? ( Available soon ! )" );
         }
 
         if ( gameObject.name == "Selectable2" ) {
             MainMenuManager.instance.UpdateDescTitle( "Survival Mode" );
-            MainMenuManager.instance.UpdateDescContent( " - No limit ! Survive and get the best score possible !" );
+            MainMenuManager.instance.UpdateDescContent( " No limit ! Survive and get the best score possible !" );
         }
     }
 }
