@@ -32,9 +32,9 @@ public class Clouds : MonoBehaviour
     /// </summary>
     private void MoveClouds() {
         if ( direction ) {
-            transform.position = new Vector2( transform.position.x + ( speed * Time.deltaTime ), transform.position.y ); 
+            transform.position = new Vector3( transform.position.x, transform.position.y, transform.position.z + ( speed * Time.deltaTime )  ); 
         } else {
-            transform.position = new Vector2( transform.position.x - ( speed * Time.deltaTime ), transform.position.y );
+            transform.position = new Vector3( transform.position.x, transform.position.y, transform.position.z - ( speed * Time.deltaTime ) );
         }
     }
 
@@ -46,7 +46,6 @@ public class Clouds : MonoBehaviour
 
         yield return new WaitForSeconds( secondsToChange );
         direction = ! direction;
-        Debug.Log( direction );
 
         inAwaiting = false;
     }
