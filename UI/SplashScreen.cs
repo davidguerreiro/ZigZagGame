@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SplashScreen : MonoBehaviour
 {
@@ -138,8 +139,8 @@ public class SplashScreen : MonoBehaviour
 
         yield return new WaitForSeconds( 1.5f );
 
-        /// TODO: Load main menu scene here.
-        Debug.Log( "completed" );
+        // load main menu scene.
+        SceneManager.LoadScene( "MainMenu" );
 
     }
 
