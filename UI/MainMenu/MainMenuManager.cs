@@ -6,18 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public static MainMenuManager instance;       // Create public instance for this manager to be called from other scripts.
-    public Text descriptionTitle;                 // Game mode description title.
-    public Text description;                      // Game mode description.
-    public Text maintTitle;                       // Main title text component.
-    public GameObject pressSpaceBar;              // Press space bar text component.
-    public GameObject mainMenu;                   // Main menu UI panel gameObject.
-    public GameObject descriptionPanel;           // Game option description UI panel gameObject.
-    public AudioClip startGameSound;              // Start game sound clip.
-    public SceneCover sceneCover;                 // Scene cover class component to make screen transition smoother.
-    private float fadeSpeed = 0.8f;               // Main title fade in speed.
-    private float movementSpeed = 500f;           // Menu appaerance speed for animation.
-    private AudioSource audio;                    // Audio Source component.
+    public static MainMenuManager instance;             // Create public instance for this manager to be called from other scripts.
+    public Text descriptionTitle;                       // Game mode description title.
+    public Text description;                            // Game mode description.
+    public Text maintTitle;                             // Main title text component.
+    public GameObject pressSpaceBar;                    // Press space bar text component.
+    public GameObject mainMenu;                         // Main menu UI panel gameObject.
+    public GameObject descriptionPanel;                 // Game option description UI panel gameObject.
+    public AudioClip startGameSound;                    // Start game sound clip.
+    public SceneCover sceneCover;                       // Scene cover class component to make screen transition smoother.
+    private float fadeSpeed = 0.8f;                     // Main title fade in speed.
+    private float descriptionMovementSpeed = 500f;      // Menu appaerance speed for animation.
+    private float  mainMenuMovementSpeed = 1350f;        // Main menu appearence speed for animation.
+    private AudioSource audio;                          // Audio Source component.
 
 
 
@@ -103,7 +104,7 @@ public class MainMenuManager : MonoBehaviour
         mainMenu.SetActive( true );
 
         while ( mainMenu.transform.position.x > toMove ) {
-            mainMenu.transform.position = new Vector2( mainMenu.transform.position.x - ( movementSpeed * Time.deltaTime ), mainMenu.transform.position.y );
+            mainMenu.transform.position = new Vector2( mainMenu.transform.position.x - ( mainMenuMovementSpeed * Time.deltaTime ), mainMenu.transform.position.y );
             yield return null;
         }
 
@@ -119,7 +120,7 @@ public class MainMenuManager : MonoBehaviour
         float toMove = 59.7002f;
         
         while (descriptionPanel.transform.position.y < toMove ) {
-            descriptionPanel.transform.position = new Vector2( descriptionPanel.transform.position.x, descriptionPanel.transform.position.y + ( movementSpeed * Time.deltaTime ) );
+            descriptionPanel.transform.position = new Vector2( descriptionPanel.transform.position.x, descriptionPanel.transform.position.y + ( descriptionMovementSpeed * Time.deltaTime ) );
             yield return null;
         }
 
@@ -127,5 +128,32 @@ public class MainMenuManager : MonoBehaviour
         descriptionPanel.transform.position = new Vector2( descriptionPanel.transform.position.x, toMove );
     }
 
+    /// <summary>
+    /// Load main level in survival
+    /// mode once the user selects 
+    /// survival mode in main menu.
+    /// </summary>
+    public void LoadSurvivalMode() {
+        // stop background music.
+        Camera.main.GetComponent<AudioSource>().Stop();
+
+        // display start playing soung.
+        audio.clip = startGameSound;
+        audio.Play();
+
+        // fade in scene cover for smoother transition.
+        StartCoroutine( sceneCover.FadeIn() );
+
+        // load survival level.
+        StartCoroutine( CorToLoadLevel() );
+    }
+
+    /// <summary>
+    /// Coroutine to load level.
+    /// </summary>
+    private IEnumerator CorToLoadLevel() {
+        yield return new WaitForSeconds( 2.5f );
+        SceneManager.LoadScene( "StandardLevel" );
+    }
 
 }
