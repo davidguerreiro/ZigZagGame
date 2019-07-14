@@ -98,7 +98,7 @@ public class MainMenuManager : MonoBehaviour
     /// Display main menu in
     /// the scene.
     /// </summary>
-    private IEnumerator DisplayMainMenu() {
+    public IEnumerator DisplayMainMenu() {
         float toMove = 1507f;                   // Final position for the main menu in the screen.
         mainMenu.SetActive( true );
 
@@ -115,7 +115,7 @@ public class MainMenuManager : MonoBehaviour
     /// Display description bar 
     /// panel in the scene.
     /// </summary>
-    private IEnumerator displayDescriptionBar() {
+    public IEnumerator displayDescriptionBar() {
         float toMove = 59.7002f;
         
         while (descriptionPanel.transform.position.y < toMove ) {

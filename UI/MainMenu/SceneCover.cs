@@ -17,7 +17,7 @@ public class SceneCover : MonoBehaviour
     /// <summary>
     /// Init class method.
     /// </summary>
-    private void Init() {
+    public void Init() {
         // get image component for fade in/out animations.
         panel = GetComponent<Image>();
     }
