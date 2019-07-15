@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {   
     public static BallController instance;                  // Class instance to be used by other components.
-
+    
     [SerializeField]
     private float speed;                                    // Ball's speed.
     bool started;                                           // Wheter the game has started or not.
@@ -21,7 +21,7 @@ public class BallController : MonoBehaviour
 
     private float minSpeed = 0f;                            // Base movement speed.
     private float maxSpeed = 11f;                           // Max speed the player can get by boost.
-    private float maxAccumulator = 5f;                      // Max seconds the player can stay in boost mode.
+    private float maxAccumulator = 6f;                      // Max seconds the player can stay in boost mode.
     private float boostAcummulationSpeed = 0.08f;           // Reduced speed animation time.
     
 
@@ -64,17 +64,32 @@ public class BallController : MonoBehaviour
         CheckPlatformDown();
 
         // check if player can boost the speed and init boost if so.
+        CheckInputForBoostMechanic();
+    }
+
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void FixedUpdate() {
+    }
+
+    /// <summary>
+    /// Check user input for boost
+    /// mechanic
+    /// </summary>
+    private void CheckInputForBoostMechanic() {
+        // check if player can boost the speed and init boost if so.
         if ( Input.GetMouseButton( 1 ) && ! accumulating && canBoost ) {
             accumulating = true;
-            StartCoroutine( AccumulateSpeed() );
+            StartCoroutine( ReduceSpeed() );
+            StartCoroutine( AccumulateTime() );
         }
 
         // check if the player stops accumulating speed so the boost is released.
         if ( Input.GetMouseButtonUp( 1 ) && accumulating && ! inBoost ) {
             accumulating = false;
-            StartCoroutine( reduceSpeed() );
+            StartCoroutine( ReleaseBost() );
         }
-    
     }
 
     /// <summary>
@@ -145,7 +160,11 @@ public class BallController : MonoBehaviour
     {
         if ( other.tag == "Diamond" ) {
             GameObject particles = Instantiate( particle, other.gameObject.transform.position, Quaternion.identity );
-            UIManager.instance.UpdateScore( 1 );
+
+            // score is duplicated if in boost mode.
+            int scoreToAdd = ( BallController.instance.inBoost ) ? 2 : 1;
+            UIManager.instance.UpdateScore( scoreToAdd );
+
             Destroy( other.gameObject );
             Destroy( particles, 1f );
         }
@@ -162,7 +181,7 @@ public class BallController : MonoBehaviour
     /// speed and then after the boost time is done the speed
     /// will be gradually recovered.
     /// </summary>
-    private IEnumerator AccumulateSpeed() {
+    private IEnumerator ReduceSpeed() {
         canBoost = false;
         
         // reduce speed and accumulate as long as the player holds the right button in the mouse.
@@ -170,10 +189,6 @@ public class BallController : MonoBehaviour
 
             if ( speed > 0f ) {
                 speed--;
-            }
-                
-            if ( accumulator < maxAccumulator ) {
-                accumulator++;
             }
 
             UpdateSpeed();
@@ -185,19 +200,35 @@ public class BallController : MonoBehaviour
     }
 
     /// <summary>
+    /// Acummulates boost time.
+    /// </summary>
+    private IEnumerator AccumulateTime() {
+        while ( accumulating ) {
+
+            if ( accumulator < maxAccumulator ) {
+                accumulator++;
+            }
+
+            yield return new WaitForSeconds( 0.5f );
+        }
+    }
+
+    /// <summary>
     /// Release accumulated speed during
     /// the boost phase. Reduce speed after the boost is
     /// completed.
     /// </summary>
-    private IEnumerator reduceSpeed() {
-        float reducer = 3f;
-        Debug.Log( accumulator / reducer );
+    private IEnumerator ReleaseBost() {
+        float toWait = accumulator;
+        float reducer = 2.5f;
+        
         inBoost = true;
+        
+        // reset accumulator for future boosts.
+        accumulator = 0;
     
         // stay in boost as much seconds as accumulated by the player.
-        yield return new WaitForSecondsRealtime( accumulator / reducer );
-
-        Debug.Log( "called after here" );
+        yield return new WaitForSeconds( toWait / reducer );
 
         while ( speed > minSpeed ) {
             speed--;
