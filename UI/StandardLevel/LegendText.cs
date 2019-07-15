@@ -12,10 +12,21 @@ public class LegendText : MonoBehaviour
     private float fadeSpeed = 0.8f;                 // Text fade speed for fade in/our animation.
     public string type = "standard";                // Type defines the visual layout of the text.
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        Init();
+
+        // trigger coroutines to fade in, move and remove text.
+        InitialiseText();   
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        Init();
+        // Init();
     }
 
     // Update is called once per frame
@@ -31,9 +42,7 @@ public class LegendText : MonoBehaviour
 
         // get text component.
         text = GetComponent<Text>();
-
-        // testing.
-        InitialiseText();
+        
     }
 
     /// <summary>
@@ -114,6 +123,14 @@ public class LegendText : MonoBehaviour
         StartCoroutine( FadeInText() );
         StartCoroutine( MoveText() );
         StartCoroutine( CountLifesSpan() );
+    }
+
+    /// <summary>
+    /// Update displayed text.
+    /// </summary>
+    /// <param name="newText">string - new text to display.</param>
+    public void UpdateText( string newText ) {
+        text.text = newText;
     }
 
 }

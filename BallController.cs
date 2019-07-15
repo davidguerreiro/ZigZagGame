@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {   
     public static BallController instance;                  // Class instance to be used by other components.
-    
+
     [SerializeField]
     private float speed;                                    // Ball's speed.
     bool started;                                           // Wheter the game has started or not.
@@ -164,6 +164,10 @@ public class BallController : MonoBehaviour
             // score is duplicated if in boost mode.
             int scoreToAdd = ( BallController.instance.inBoost ) ? 2 : 1;
             UIManager.instance.UpdateScore( scoreToAdd );
+
+            // add text to the legend.
+            string legendText = ( BallController.instance.inBoost ) ? "points" :  "point";
+            Legend.instance.AddText( "+" + scoreToAdd + " " + legendText );
 
             Destroy( other.gameObject );
             Destroy( particles, 1f );
