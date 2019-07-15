@@ -21,7 +21,6 @@ public class MainMenuManager : MonoBehaviour
     private AudioSource audio;                          // Audio Source component.
 
 
-
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>

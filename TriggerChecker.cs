@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TriggerChecker : MonoBehaviour
-{
-
-    Rigidbody rigibody;                 // Rigibody component.
+{   
+    public float standingTime = 0.5f;             // Time the platforms stands before failling down.
+    private Rigidbody rigibody;                 // Rigibody component.
+    
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class TriggerChecker : MonoBehaviour
     void OnTriggerExit( Collider col )
     {
         if ( col.gameObject.tag == "Ball" ) {
-            Invoke( "FallDown", 0.5f );
+            Invoke( "FallDown", standingTime );
         }
     }
 
