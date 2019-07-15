@@ -23,6 +23,7 @@ public class BallController : MonoBehaviour
     private float maxSpeed = 11f;                           // Max speed the player can get by boost.
     private float maxAccumulator = 6f;                      // Max seconds the player can stay in boost mode.
     private float boostAcummulationSpeed = 0.08f;           // Reduced speed animation time.
+    private PlayerModel playerModel;                        // Player 3D model logic class component.
     
 
     Rigidbody rb;                           // Rigibody component.
@@ -99,9 +100,15 @@ public class BallController : MonoBehaviour
         if ( rb.velocity.z > 0 ) {
             rb.velocity = new Vector3( speed, 0, 0 );
             orientation = "right";
+
+            // rotate the player to the right.
+            StartCoroutine( playerModel.TurnRight() );
         } else {
             rb.velocity = new Vector3( 0, 0, speed );
             orientation = "front";
+
+            // rotate player to the right.
+            StartCoroutine( playerModel.TurnLeft() );
         }
     }
 
@@ -148,6 +155,12 @@ public class BallController : MonoBehaviour
         gameOver = false;
         canBoost = true;
 
+        // get 3D model logic class component for animations.
+        playerModel = GetComponentInChildren<PlayerModel>();
+
+        // stop bouncing animation - to replace in the future for fast movement bouncing.
+        playerModel.StopBouncing();
+
         // start game.
         // GameManager.instance.StartGame();
     }
@@ -166,7 +179,7 @@ public class BallController : MonoBehaviour
             UIManager.instance.UpdateScore( scoreToAdd );
 
             // add text to the legend.
-            string legendText = ( BallController.instance.inBoost ) ? "points" :  "point";
+            string legendText = ( BallController.instance.inBoost ) ? "points" : "point";
             Legend.instance.AddText( "+" + scoreToAdd + " " + legendText );
 
             Destroy( other.gameObject );
