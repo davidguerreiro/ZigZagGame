@@ -43,6 +43,8 @@ public class PlayerModel : MonoBehaviour
     /// </summary>
     public IEnumerator TurnLeft() {
 
+        // TODO: Add runnig fast animation.
+
         // stop bouncing animation.
         //animation.Stop();
 

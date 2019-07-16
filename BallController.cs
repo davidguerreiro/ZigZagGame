@@ -171,7 +171,12 @@ public class BallController : MonoBehaviour
     /// <param name="other">The other Collider involved in this collision.</param>
     void OnTriggerEnter(Collider other)
     {
-        if ( other.tag == "Diamond" ) {
+        if ( other.tag == "basicApple" ) {
+
+            other.gameObject.GetComponentInChildren<BasicApple>().GetCollected();
+            /*
+            Legacy code form prototype
+
             GameObject particles = Instantiate( particle, other.gameObject.transform.position, Quaternion.identity );
 
             // score is duplicated if in boost mode.
@@ -184,6 +189,7 @@ public class BallController : MonoBehaviour
 
             Destroy( other.gameObject );
             Destroy( particles, 1f );
+            */
         }
     }
 

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlatformSpawner : MonoBehaviour
 {
-    public GameObject platform;                 // Platforms gameObject.
-    public GameObject diamond;                  // Diamonds gameObject.
+    public GameObject platform;                     // Platforms gameObject.
+    public GameObject basicApple;                   // Basic apple collectible.
     Vector3 lastPos;
     float size;
     bool gameOver;
@@ -42,19 +42,19 @@ public class PlatformSpawner : MonoBehaviour
         lastPos = pos;
         Instantiate( platform, pos, Quaternion.identity );
 
-        // instantiate diamond.
-        SpawnDiamond( pos );
+        // instantiate basic apple.
+        SpawnBasicApple( pos );
     }
 
     /// <summary>
-    /// Spawn a diamond
+    /// Spawn a basic apple collectible.
     /// </summary>
-    /// <param name="pos">vector3 - current instantiate platform position to instantiate the diamond</param>
-    private void SpawnDiamond( Vector3 pos ) {
+    /// <param name="pos">vector3 - current instantiate platform position to instantiate the basic apple</param>
+    private void SpawnBasicApple( Vector3 pos ) {
         int rand = Random.Range( 0, 4 );
 
         if ( rand < 1 ) {
-            Instantiate( diamond, new Vector3( pos.x, pos.y + 1, pos.z ), diamond.transform.rotation );
+            Instantiate( basicApple, new Vector3( pos.x, pos.y + 1, pos.z ), basicApple.transform.rotation );
         }
     }
 
@@ -68,7 +68,7 @@ public class PlatformSpawner : MonoBehaviour
         Instantiate( platform, pos, Quaternion.identity );
 
         // instantiate diamond
-        SpawnDiamond( pos );
+        SpawnBasicApple( pos );
     }
 
     /// <summary>
@@ -80,7 +80,6 @@ public class PlatformSpawner : MonoBehaviour
         gameOver = false;
 
         // spawn platforms.
-        
         for ( int i = 0; i < 20; i++ ) {
             SpawnPlatforms();
         }
