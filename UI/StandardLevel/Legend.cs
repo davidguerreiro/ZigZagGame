@@ -17,18 +17,6 @@ public class Legend : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// Display a new text
     /// in the legend.
@@ -39,7 +27,6 @@ public class Legend : MonoBehaviour
 
         // instantiate text on children position.
         GameObject addedText = Instantiate( textModel, transform.position, transform.rotation, this.transform );
-        Debug.Log( addedText );
 
         // update text values.
         LegendText textClass = addedText.GetComponent<LegendText>();

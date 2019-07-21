@@ -7,7 +7,9 @@ public class BallController : MonoBehaviour
     public static BallController instance;                  // Class instance to be used by other components.
 
     [SerializeField]
-    private float speed;                                    // Ball's speed.
+    private float speed;                                    // Current Ball's speed.
+    [SerializeField]
+    private float baseSpeed = 7f;                            // Base speed used to move the character.
     bool started;                                           // Wheter the game has started or not.
     bool gameOver;                                          // Wheter the game enters in game over mode.
     public GameObject particle;                             // Particle effect used when a diamond is collected by the user.
@@ -52,7 +54,7 @@ public class BallController : MonoBehaviour
     private void InitClass() {
 
         // set min speed as player base speed.
-        minSpeed = speed;
+        minSpeed = baseSpeed;
     }
 
     // Update is called once per frame.
@@ -150,7 +152,7 @@ public class BallController : MonoBehaviour
     /// Initialise class method.
     /// </summary>
     private void Init() {
-        rb.velocity = new Vector3( speed, 0, 0 );
+        rb.velocity = new Vector3( baseSpeed, 0, 0 );
         started = false;
         gameOver = false;
         canBoost = true;
@@ -205,6 +207,7 @@ public class BallController : MonoBehaviour
     /// will be gradually recovered.
     /// </summary>
     private IEnumerator ReduceSpeed() {
+        float uiSpeed = 0f;
         canBoost = false;
         
         // reduce speed and accumulate as long as the player holds the right button in the mouse.
@@ -212,6 +215,9 @@ public class BallController : MonoBehaviour
 
             if ( speed > 0f ) {
                 speed--;
+                
+                // Update UI speed value.
+                SpeedValue.instance.TriggerUISpeedAction( "maxReducer" );
             }
 
             UpdateSpeed();
@@ -244,6 +250,10 @@ public class BallController : MonoBehaviour
     private IEnumerator ReleaseBost() {
         float toWait = accumulator;
         float reducer = 2.5f;
+
+        // update UI speed to max speed after any other speed animation is removed.
+        SpeedValue.instance.CheckRunningCoroutines();
+        SpeedValue.instance.UpdateUISpeed( SpeedValue.instance.maxUISpeed, true );
         
         inBoost = true;
         
@@ -253,9 +263,13 @@ public class BallController : MonoBehaviour
         // stay in boost as much seconds as accumulated by the player.
         yield return new WaitForSeconds( toWait / reducer );
 
+        // reduce maxSped to baseSpeed in the UI.
+        SpeedValue.instance.TriggerUISpeedAction( "normalReducer" );
         while ( speed > minSpeed ) {
             speed--;
             UpdateSpeed();
+
+            // trigger UI speed reduce speed animation.
             yield return new WaitForSeconds( boostAcummulationSpeed );
         }
 

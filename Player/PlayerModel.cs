@@ -63,7 +63,6 @@ public class PlayerModel : MonoBehaviour
     /// </summary>
     public void StopBouncing() {
         if ( animation.clip.name == "playerBouncing" ) {
-            Debug.Log( "stop bouncing" );
             animation.Stop();
         }
     }
