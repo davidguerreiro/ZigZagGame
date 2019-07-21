@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class PlayerModel : MonoBehaviour
 {
-    private Animation animation;                            // Animation component.
-    private float finishAnimationTime = 0.4f;               // Time before we play the player bouncing animation again.
+    public Color[] colors = new Color[2];                           // Array of color for the main player.
+    public ParticleSystem[] particles = new ParticleSystem[2];      // Array of particle system for animations.
+    private Animation animation;                                    // Animation component.
+    private Renderer renderer;                                      // Renderer component.
+    private float colorTransitionDuration = 1f;                     // Color transition speed.
+    private float fadeStart = 0f;                                   // Internal counter used for color transition animation.
+    private float finishAnimationTime = 0.4f;                       // Time before we play the player bouncing animation again.
 
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         Init();
     }
 
@@ -74,5 +78,56 @@ public class PlayerModel : MonoBehaviour
         
         // get animation component.
         animation = GetComponent<Animation>();
+
+        // get renderer component.
+        renderer = GetComponent<Renderer>();
+    }
+
+    /// <summary>
+    /// Fade player color material.
+    /// </summary>
+    /// <param name="color1">color1 - color from where you init the transition</param>
+    /// <param name="color2">color2 - color where you finish the transition</param>
+    private IEnumerator ChangeColor( Color color1, Color color2 ) {
+         
+        while ( fadeStart < colorTransitionDuration ) {
+            fadeStart += Time.deltaTime * colorTransitionDuration;
+            renderer.material.color = Color.Lerp( color1, color2, fadeStart );
+
+            yield return null;
+        }
+
+        // fix variations in the animation.
+        renderer.material.color = color2;
+        fadeStart = 0;
+    }
+
+    /// <summary>
+    /// Accumulate speed animation.
+    /// </summary>
+    public void AccumulateSpeedAnimation() {
+        // display particles.
+        particles[0].Play();
+
+        // set player color to accumulate color.
+        StartCoroutine( ChangeColor( colors[0], colors[1] ) );
+    }
+
+    /// <summary>
+    /// Release speed animation.
+    /// </summary>
+    public void ReleaseSpeedAnimation() {
+        // remove accumulation particles.
+        particles[0].Stop();
+
+        // TOOD: Play explosion particle effect here.
+    }
+
+    /// <summary>
+    /// Set speed to normal value animation.
+    /// </summary>
+    public void SetSpeedToBaseSpeedAnimation() {
+        // set player to original color when the speed is set to baseSpeed.
+        StartCoroutine( ChangeColor( colors[1], colors[0] ) );
     }
 }

@@ -209,6 +209,9 @@ public class BallController : MonoBehaviour
     private IEnumerator ReduceSpeed() {
         float uiSpeed = 0f;
         canBoost = false;
+
+        // display accumulate energy animation.
+        playerModel.AccumulateSpeedAnimation();
         
         // reduce speed and accumulate as long as the player holds the right button in the mouse.
         while ( accumulating ) {
@@ -251,6 +254,9 @@ public class BallController : MonoBehaviour
         float toWait = accumulator;
         float reducer = 2.5f;
 
+        // display release bost animation.
+        playerModel.ReleaseSpeedAnimation();
+
         // update UI speed to max speed after any other speed animation is removed.
         SpeedValue.instance.CheckRunningCoroutines();
         SpeedValue.instance.UpdateUISpeed( SpeedValue.instance.maxUISpeed, true );
@@ -272,6 +278,9 @@ public class BallController : MonoBehaviour
             // trigger UI speed reduce speed animation.
             yield return new WaitForSeconds( boostAcummulationSpeed );
         }
+
+        // display get back to base speed animation.
+        playerModel.SetSpeedToBaseSpeedAnimation();
 
         canBoost = true;
         inBoost = false;
