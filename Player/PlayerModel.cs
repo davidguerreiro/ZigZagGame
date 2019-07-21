@@ -8,7 +8,7 @@ public class PlayerModel : MonoBehaviour
     public ParticleSystem[] particles = new ParticleSystem[2];      // Array of particle system for animations.
     private Animation animation;                                    // Animation component.
     private Renderer renderer;                                      // Renderer component.
-    private float colorTransitionDuration = 1f;                     // Color transition speed.
+    private float colorTransitionDuration = 1f;                    // Color transition speed.
     private float fadeStart = 0f;                                   // Internal counter used for color transition animation.
     private float finishAnimationTime = 0.4f;                       // Time before we play the player bouncing animation again.
 
@@ -107,7 +107,8 @@ public class PlayerModel : MonoBehaviour
     /// </summary>
     public void AccumulateSpeedAnimation() {
         // display particles.
-        particles[0].Play();
+        // particles[0].Play();
+        particles[0].gameObject.SetActive( true );
 
         // set player color to accumulate color.
         StartCoroutine( ChangeColor( colors[0], colors[1] ) );
@@ -118,7 +119,8 @@ public class PlayerModel : MonoBehaviour
     /// </summary>
     public void ReleaseSpeedAnimation() {
         // remove accumulation particles.
-        particles[0].Stop();
+        // particles[0].Stop();
+        particles[0].gameObject.SetActive( false );
 
         // TOOD: Play explosion particle effect here.
     }
