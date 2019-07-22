@@ -89,6 +89,8 @@ public class PlayerModel : MonoBehaviour
     /// <param name="color1">color1 - color from where you init the transition</param>
     /// <param name="color2">color2 - color where you finish the transition</param>
     private IEnumerator ChangeColor( Color color1, Color color2 ) {
+
+        float x = 1f;
          
         while ( fadeStart < colorTransitionDuration ) {
             fadeStart += Time.deltaTime * colorTransitionDuration;
