@@ -8,7 +8,7 @@ public class PlayerModel : MonoBehaviour
     public ParticleSystem[] particles = new ParticleSystem[2];      // Array of particle system for animations.
     private Animation animation;                                    // Animation component.
     private Renderer renderer;                                      // Renderer component.
-    private float colorTransitionDuration = 1f;                    // Color transition speed.
+    private float colorTransitionDuration = 0.05f;                    // Color transition speed.
     private float fadeStart = 0f;                                   // Internal counter used for color transition animation.
     private float finishAnimationTime = 0.4f;                       // Time before we play the player bouncing animation again.
 
@@ -89,14 +89,13 @@ public class PlayerModel : MonoBehaviour
     /// <param name="color1">color1 - color from where you init the transition</param>
     /// <param name="color2">color2 - color where you finish the transition</param>
     private IEnumerator ChangeColor( Color color1, Color color2 ) {
+        float counter = 0f;
 
-        float x = 1f;
-         
-        while ( fadeStart < colorTransitionDuration ) {
-            fadeStart += Time.deltaTime * colorTransitionDuration;
-            renderer.material.color = Color.Lerp( color1, color2, fadeStart );
+        while ( counter < 1f ) {
+            counter = counter + 0.1f;
+            renderer.material.color = Color.Lerp( color1, color2, counter );
 
-            yield return null;
+            yield return new WaitForSeconds( colorTransitionDuration );
         }
 
         // fix variations in the animation.
