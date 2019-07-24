@@ -108,7 +108,6 @@ public class PlayerModel : MonoBehaviour
     /// </summary>
     public void AccumulateSpeedAnimation() {
         // display particles.
-        // particles[0].Play();
         particles[0].gameObject.SetActive( true );
 
         // set player color to accumulate color.
@@ -119,11 +118,12 @@ public class PlayerModel : MonoBehaviour
     /// Release speed animation.
     /// </summary>
     public void ReleaseSpeedAnimation() {
-        // remove accumulation particles.
-        // particles[0].Stop();
-        particles[0].gameObject.SetActive( false );
 
-        // TOOD: Play explosion particle effect here.
+        // remove accumulation particles.
+        particles[0].gameObject.SetActive( false );
+        
+        // display release boost particle animation.
+        // particles[1].Play();
     }
 
     /// <summary>
@@ -132,5 +132,8 @@ public class PlayerModel : MonoBehaviour
     public void SetSpeedToBaseSpeedAnimation() {
         // set player to original color when the speed is set to baseSpeed.
         StartCoroutine( ChangeColor( colors[1], colors[0] ) );
+
+        // set relaser boost particle system as disabled so it can be enabled by nest boost.
+        // particles[1].Stop();
     }
 }

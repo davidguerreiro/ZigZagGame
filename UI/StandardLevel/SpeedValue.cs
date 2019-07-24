@@ -155,7 +155,6 @@ public class SpeedValue : MonoBehaviour
             }
 
             uiSpeed = uiSpeed - 0.1f;
-            Debug.Log( uiSpeed );
             UpdateUISpeed( uiSpeed );
 
             yield return new WaitForSeconds( animationSpeed );

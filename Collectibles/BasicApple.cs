@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class BasicApple : MonoBehaviour
 {
+    public AudioClip boostSound;                            // Audio clips to be used by this collectible.
+    private int scoreToAdd = 1;                             // score to add when the apple is collected
     private Animation animation;                            // Animation component.
+    private AudioSource audio;                              // Audion source component.
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +37,9 @@ public class BasicApple : MonoBehaviour
 
         // get animation component.
         animation = GetComponent<Animation>();
+
+        // get audio source component.
+        audio = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -46,10 +52,18 @@ public class BasicApple : MonoBehaviour
         animation.clip = animation.GetClip( "apple-collected" );
         animation.Play();
 
-        // TODO: Add sound.
+        // set score and sound based on player boost status.
+        // score is duplicated if in boost mode.
+        // audio sound changes.
+        if ( BallController.instance.inBoost ) {
+            scoreToAdd = 2;
+            audio.clip = boostSound;
+        }
+
+        // display collect sound.
+        audio.Play();
 
         // score is duplicated if in boost mode.
-        int scoreToAdd = ( BallController.instance.inBoost ) ? 2 : 1;
         UIManager.instance.UpdateScore( scoreToAdd );
 
         // add text to the legend.

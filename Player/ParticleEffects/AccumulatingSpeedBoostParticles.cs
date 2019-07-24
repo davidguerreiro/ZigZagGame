@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AccumulatingSpeedBoostParticles : MonoBehaviour
 {
-    private float speed = 100f;
+    private float speed = 100f;                             // Particle gameObject rotation speed.
     
     /// this method is called when the gameObject is enabled.
     void OnEnable() {
