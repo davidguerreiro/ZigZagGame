@@ -9,7 +9,7 @@ public class BallController : MonoBehaviour
     [SerializeField]
     private float speed;                                    // Current Ball's speed.
     [SerializeField]
-    private float baseSpeed = 7f;                            // Base speed used to move the character.
+    private float baseSpeed = 7f;                           // Base speed used to move the character.
     bool started;                                           // Wheter the game has started or not.
     bool gameOver;                                          // Wheter the game enters in game over mode.
     public GameObject particle;                             // Particle effect used when a diamond is collected by the user.
@@ -26,6 +26,7 @@ public class BallController : MonoBehaviour
     private float maxAccumulator = 6f;                      // Max seconds the player can stay in boost mode.
     private float boostAcummulationSpeed = 0.08f;           // Reduced speed animation time.
     private PlayerModel playerModel;                        // Player 3D model logic class component.
+    private AudioSource audioSource;                        // AudioSource component.
     
 
     Rigidbody rb;                           // Rigibody component.
@@ -43,8 +44,7 @@ public class BallController : MonoBehaviour
     }
 
     // Start is called before the first frame update.
-    void Start()
-    {
+    void Start() {
         InitClass();
     }
 
@@ -55,11 +55,13 @@ public class BallController : MonoBehaviour
 
         // set min speed as player base speed.
         minSpeed = baseSpeed;
+
+        // get audio component.
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame.
-    void Update()
-    {
+    void Update() {
         // Lisen for user input.
         InputConroller();
 
@@ -162,6 +164,9 @@ public class BallController : MonoBehaviour
 
         // stop bouncing animation - to replace in the future for fast movement bouncing.
         playerModel.StopBouncing();
+
+        // start playing level music.
+        LevelLoaderMusic.instance.PlayLevelMusic();
 
         // start game.
         // GameManager.instance.StartGame();
