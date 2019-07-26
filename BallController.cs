@@ -17,6 +17,7 @@ public class BallController : MonoBehaviour
     public bool inBoost = false;                            // Wheter the ball is in boost mode. During boost mode score you get by taking collectibles is multiplied by 2.
     public bool canBoost = false;                           // Wheter the player can use the boost.
     public string orientation = "front";                    // Which direction the ball is moving / facing.
+    public AudioClip[] soundEffects;                        // Sound effects coming from the player.
 
     [SerializeField]
     private float accumulator = 0f;                         // Speed accumulated by the player to release in the boost mechanic.
@@ -101,6 +102,13 @@ public class BallController : MonoBehaviour
     /// Change ball direction.
     /// </summary>
     public void SwitchDirection() {
+        // set switch quick direction speed sound and play it only if in boost mode.
+        SetSoundClip( 2 );
+
+        if ( inBoost ) {
+            PlaySound();
+        }
+
         if ( rb.velocity.z > 0 ) {
             rb.velocity = new Vector3( speed, 0, 0 );
             orientation = "right";
@@ -114,6 +122,8 @@ public class BallController : MonoBehaviour
             // rotate player to the right.
             StartCoroutine( playerModel.TurnLeft() );
         }
+
+        
     }
 
     /// <summary>
@@ -217,7 +227,11 @@ public class BallController : MonoBehaviour
 
         // display accumulate energy animation.
         playerModel.AccumulateSpeedAnimation();
-        
+
+        // set accumulate energy soundclip.
+        SetSoundClip( 0 );
+        PlaySound();
+
         // reduce speed and accumulate as long as the player holds the right button in the mouse.
         while ( accumulating ) {
 
@@ -230,8 +244,10 @@ public class BallController : MonoBehaviour
 
             UpdateSpeed();
             yield return new WaitForSeconds( boostAcummulationSpeed );
+            
         }
 
+        // StopSound();
         speed = maxSpeed;
         UpdateSpeed();
     }
@@ -258,6 +274,10 @@ public class BallController : MonoBehaviour
     private IEnumerator ReleaseBost() {
         float toWait = accumulator;
         float reducer = 2.5f;
+
+        // set release energy sound clip and play it.
+        SetSoundClip( 2 );
+        PlaySound();
 
         // display release bost animation.
         playerModel.ReleaseSpeedAnimation();
@@ -301,6 +321,32 @@ public class BallController : MonoBehaviour
             rb.velocity = new Vector3( 0, 0, speed );
         } else {
             rb.velocity = new Vector3( speed, 0, 0 );
+        }
+    }
+
+    /// <summary>
+    /// Update player sound.
+    /// Set sound effect in the Audio
+    /// source component.
+    /// </summary>
+    /// <param name="clipKey">int - clip key in sfx array</param>
+    private void SetSoundClip( int clipKey ) {
+        audioSource.clip = soundEffects[ clipKey ];
+    }
+
+    /// <summary>
+    /// Play player sound.
+    /// </summary>
+    private void PlaySound() {
+        audioSource.Play();
+    }
+
+    /// <summary>
+    /// Stop playing sound.
+    /// </summary>
+    private void StopSound() {
+        if ( audioSource.isPlaying ) {
+            audioSource.Stop();
         }
     }
 

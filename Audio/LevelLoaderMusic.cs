@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelLoaderMusic : MonoBehaviour
 {
     public static LevelLoaderMusic instance;                // Public static instance to make this class available for other scripts.
-    public AudioClip[] songs = new AudioClip[2];            // Songs availables for the level.
+    public AudioClip[] songs = new AudioClip[3];            // Songs availables for the level.
     private AudioSource audio;                              // AudioSource component.
 
     /// <summary>
