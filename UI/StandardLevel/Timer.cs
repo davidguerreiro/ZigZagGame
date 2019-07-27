@@ -5,17 +5,21 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer instance;           // Static instance to make this class available for other scritps.
     public Text hours;                      // Hours for the timer text component.
     public Text minutes;                    // Minutes for the timer text component.
     public Text seconds;                    // Seconds for the timer text component.
     public Text miliseconds;                // Miliseconds fot the timer text component.
-    public bool enabled = false;            // Wheter the timer is enabled or stoped.
+    private bool enabled = false;            // Wheter the timer is enabled or stoped.
     private IEnumerator timer;              // Asychonus method for adding units to the timer. 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake() {
+        if ( instance == null ) {
+            instance = this;
+        }
     }
 
     // Update is called once per frame
@@ -74,5 +78,19 @@ public class Timer : MonoBehaviour
             UpdateComponent( minutes, 0 );
             UpdateComponent( hours, currentHours + 1 );
         }
+    }
+
+    /// <summary>
+    /// Run timer.
+    /// </summary>
+    public void RunTime() {
+        this.enabled = true;
+    }
+
+    /// <summary>
+    /// Stop timer.
+    /// </summary>
+    public void StopTimer() {
+        this.enabled = false;
     }
 }

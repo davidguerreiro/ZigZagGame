@@ -154,8 +154,13 @@ public class BallController : MonoBehaviour
             gameOver = true;
             rb.velocity = new Vector3( 0, -25f, 0 );
 
+            // stop camera.
             Camera.main.GetComponent<CameraFollow>().gameOver = true;
 
+            // stop timer.
+            Timer.instance.StopTimer();
+
+            // run gameOver logic in the game manager.
             GameManager.instance.PlayerDefeated();
         }
     }
@@ -175,8 +180,12 @@ public class BallController : MonoBehaviour
         // stop bouncing animation - to replace in the future for fast movement bouncing.
         playerModel.StopBouncing();
 
+        // start timer.
+        Timer.instance.RunTime();
+
         // start playing level music.
         LevelLoaderMusic.instance.PlayLevelMusic();
+
 
         // start game.
         // GameManager.instance.StartGame();
