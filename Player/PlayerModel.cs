@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerModel : MonoBehaviour
 {
     public Color[] colors = new Color[2];                           // Array of color for the main player.
+    public TwoDEffects twoDEffects;                                 // Player effects and animations in 2D class component.
     public ParticleSystem[] particles = new ParticleSystem[2];      // Array of particle system for animations.
     private Animation animation;                                    // Animation component.
     private Renderer renderer;                                      // Renderer component.
@@ -32,6 +33,11 @@ public class PlayerModel : MonoBehaviour
         // stop bouncing animation.
         //animation.Stop();
 
+        // stop speed animation if applicable.
+        if ( twoDEffects.inAnimation ) {
+            twoDEffects.StopReleaseEffectAnim();
+        }
+
         // set current clip as turn right animation and play.
         animation.clip = animation.GetClip( "playerMoveRight" );
         animation.Play();
@@ -48,6 +54,11 @@ public class PlayerModel : MonoBehaviour
     public IEnumerator TurnLeft() {
 
         // TODO: Add runnig fast animation.
+
+        // stop speed animation if applicable.
+        if ( twoDEffects.inAnimation ) {
+            twoDEffects.StopReleaseEffectAnim();
+        }
 
         // stop bouncing animation.
         //animation.Stop();
@@ -122,8 +133,11 @@ public class PlayerModel : MonoBehaviour
         // remove accumulation particles.
         particles[0].gameObject.SetActive( false );
         
-        // display release boost particle animation.
-        // particles[1].Play();
+        // display speed animation.
+        if ( ! twoDEffects.inAnimation ) {
+            StartCoroutine( twoDEffects.ReleaseSpeedEffectAnim() );
+        }
+        
     }
 
     /// <summary>
