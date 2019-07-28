@@ -6,6 +6,7 @@ public class Legend : MonoBehaviour
 {
     public static Legend instance;                      // Class instance to access this class component from other scripts.
     public GameObject textModel;                        // Text model to instantiate.
+    public Color[] colors;                              // Colors to use for the text.
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -31,7 +32,15 @@ public class Legend : MonoBehaviour
         // update text values.
         LegendText textClass = addedText.GetComponent<LegendText>();
         textClass.UpdateText( text );
-        textClass.type = type;
+        
+        // update text color if required by type.
+        if ( type != "standard" ) {
+
+            // text for golden apple collectible.
+            if ( type == "golden" ) {
+                textClass.SetTextColor( colors[0] );
+            }
+        }
     }
 
 }

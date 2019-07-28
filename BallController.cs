@@ -18,6 +18,7 @@ public class BallController : MonoBehaviour
     public bool canBoost = false;                           // Wheter the player can use the boost.
     public string orientation = "front";                    // Which direction the ball is moving / facing.
     public AudioClip[] soundEffects;                        // Sound effects coming from the player.
+    public string additionalState = "none";                 // Any additional state is saved in this string. No two additional states can be hold at the same time.
 
     [SerializeField]
     private float accumulator = 0f;                         // Speed accumulated by the player to release in the boost mechanic.
@@ -357,6 +358,15 @@ public class BallController : MonoBehaviour
         if ( audioSource.isPlaying ) {
             audioSource.Stop();
         }
+    }
+
+    /// <summary>
+    /// Update player additional
+    /// state.
+    /// </summary>
+    /// <param name="newState">string - player new state</param>
+    public void UpdateAdditionalState( string newState ) {
+        this.additionalState = newState;
     }
 
 }

@@ -133,4 +133,12 @@ public class LegendText : MonoBehaviour
         text.text = newText;
     }
 
+    /// <summary>
+    /// Set text color.
+    /// </summary>
+    /// <param name="newColor">Color - new color to set for the new text</param>
+    public void SetTextColor( Color newColor ) {
+        text.color = newColor;
+    }
+
 }

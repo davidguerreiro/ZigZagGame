@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicApple : MonoBehaviour
+public class GoldenApple : MonoBehaviour
 {
-    public AudioClip boostSound;                            // Audio clips to be used by this collectible.
-    private int scoreToAdd = 1;                             // score to add when the apple is collected
     private Animation animation;                            // Animation component.
     private AudioSource audio;                              // Audion source component.
 
@@ -52,30 +50,16 @@ public class BasicApple : MonoBehaviour
         animation.clip = animation.GetClip( "apple-collected" );
         animation.Play();
 
-        // in boost mode the base score is duplicated.
-        if ( BallController.instance.inBoost ) {
-            scoreToAdd *= 2;
-        }
+        // set player in golden mode - double points for each collected apple.
+        if ( BallController.instance.additionalState == "none" ) {
+            // TODO: call enter golden state here.
 
-        // if in golden mode, the score is duplicated.
-        if ( BallController.instance.additionalState == "golden" ) {
-            scoreToAdd *= 2;
-        }
-
-        // audio sound changes for boost mode or golden additional mode.
-        if ( scoreToAdd > 1 ) {
-            audio.clip = boostSound;
+            // add text to the legend.
+            Legend.instance.AddText( "Double points mode" );
         }
 
         // display collect sound.
         audio.Play();
-
-        // score is duplicated if in boost mode.
-        UIManager.instance.UpdateScore( scoreToAdd );
-
-        // add text to the legend.
-        string legendText = ( scoreToAdd > 1 ) ? "points" : "point";
-        Legend.instance.AddText( "+" + scoreToAdd + " " + legendText );
 
         Destroy( this.gameObject, 1f );
     }
