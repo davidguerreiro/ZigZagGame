@@ -12,6 +12,10 @@ public class PlatformSpawner : MonoBehaviour
     float size;
     bool gameOver;
 
+    // random items rations.
+    private int basicAppleRatio = 4;                // Maximun ratio for spawning basic apples.
+    private int goldenAppleRatio = 45;              // Maximun ratio for spawning golden apples.
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +57,7 @@ public class PlatformSpawner : MonoBehaviour
     /// </summary>
     /// <param name="pos">vector3 - current instantiate platform position to instantiate the basic apple</param>
     private void SpawnBasicApple( Vector3 pos ) {
-        int rand = Random.Range( 0, 4 );
+        int rand = Random.Range( 0, basicAppleRatio );
 
         if ( rand < 1 ) {
             Instantiate( basicApple, new Vector3( pos.x, pos.y + 1, pos.z ), basicApple.transform.rotation );
@@ -68,7 +72,7 @@ public class PlatformSpawner : MonoBehaviour
     /// </summary>
     /// <param name="pos">vector3 - current instantiate platform position to instantiate the golden apple</param>
     private void SpawnGoldenApple( Vector3 pos ) {
-        int rand = Random.Range( 0, 10 );
+        int rand = Random.Range( 0, goldenAppleRatio );
 
         if ( rand < 1 ) {
             Instantiate( goldenApple, new Vector3( pos.x, pos.y + 1, pos.z ), goldenApple.transform.rotation );

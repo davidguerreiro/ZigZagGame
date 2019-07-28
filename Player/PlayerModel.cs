@@ -9,7 +9,7 @@ public class PlayerModel : MonoBehaviour
     public ParticleSystem[] particles = new ParticleSystem[2];      // Array of particle system for animations.
     private Animation animation;                                    // Animation component.
     private Renderer renderer;                                      // Renderer component.
-    private float colorTransitionDuration = 0.05f;                    // Color transition speed.
+    private float colorTransitionDuration = 0.05f;                  // Color transition speed.
     private float fadeStart = 0f;                                   // Internal counter used for color transition animation.
     private float finishAnimationTime = 0.4f;                       // Time before we play the player bouncing animation again.
 
@@ -118,11 +118,37 @@ public class PlayerModel : MonoBehaviour
     /// Accumulate speed animation.
     /// </summary>
     public void AccumulateSpeedAnimation() {
+        // get current color.
+        Color currentColor = GetCurrentColor();
+
         // display particles.
         particles[0].gameObject.SetActive( true );
 
         // set player color to accumulate color.
-        StartCoroutine( ChangeColor( colors[0], colors[1] ) );
+        StartCoroutine( ChangeColor( currentColor, colors[1] ) );
+    }
+
+    /// <summary>
+    /// Get current color.
+    /// </summary>
+    public Color GetCurrentColor() {
+        Color _currentColor = colors[0];
+
+        // check if the current color is the boost color.
+        if ( BallController.instance.inBoost ) {
+            _currentColor = colors[1];
+        } else {
+            _currentColor = colors[2];
+        }
+
+        // check if the current color is the golden state color.
+        if ( BallController.instance.additionalState == "golden" ) {
+            _currentColor = colors[2];
+        } else {
+            _currentColor = colors[0];
+        }
+
+        return _currentColor;
     }
 
     /// <summary>
@@ -144,10 +170,48 @@ public class PlayerModel : MonoBehaviour
     /// Set speed to normal value animation.
     /// </summary>
     public void SetSpeedToBaseSpeedAnimation() {
-        // set player to original color when the speed is set to baseSpeed.
-        StartCoroutine( ChangeColor( colors[1], colors[0] ) );
+        // current color.
+        Color currentColor = GetCurrentColor();
 
-        // set relaser boost particle system as disabled so it can be enabled by nest boost.
-        // particles[1].Stop();
+        // set player to original color when the speed is set to baseSpeed.
+        StartCoroutine( ChangeColor( colors[1], currentColor ) );
+    }
+
+
+    /// <sumamry>
+    /// Set player in double score mode.
+    /// Typically this mode is set after the
+    /// player collects a golden apple.
+    /// </summary>
+    /// <param name="duration">float - golden apple boost duration</param>
+    public IEnumerator TriggerGoldenStateAnimation( float duration ) {
+        // get current color.
+        Color currentColor = GetCurrentColor();
+
+        // set player state.
+        BallController.instance.UpdateAdditionalState( "golden" );
+
+        // change player color to golden state.
+        if ( ! BallController.instance.inBoost ) {
+            StartCoroutine( ChangeColor( currentColor, colors[2] ) );
+        }
+
+        yield return new WaitForSecondsRealtime( duration );
+        RemoveGoldenState();
+    }
+
+    /// <summary>
+    /// Remove golden mode and set player
+    /// in base mode.
+    /// </summary>
+    public void RemoveGoldenState() {
+        // get current color.
+        Color currentColor = GetCurrentColor();
+
+        // set player state to default.
+        BallController.instance.UpdateAdditionalState( "none" );
+
+        // set player to default color.
+        StartCoroutine( ChangeColor( currentColor, colors[0] ) );
     }
 }

@@ -7,6 +7,7 @@ public class GoldenApple : MonoBehaviour
     private Animation animation;                            // Animation component.
     private AudioSource audio;                              // Audion source component.
     private GameObject particles;                           // Golden apple particles gameObject.
+    private float stateDuration = 6f;                            // Golden state boost duration.
 
     // Start is called before the first frame update
     void Start()
@@ -59,8 +60,10 @@ public class GoldenApple : MonoBehaviour
 
         // set player in golden mode - double points for each collected apple.
         if ( BallController.instance.additionalState == "none" ) {
-            // TODO: call enter golden state here.
 
+            // set player 3d model in golden state.
+            BallController.instance.SetGoldenState( stateDuration );
+            
             // add text to the legend.
             Legend.instance.AddText( "Double  points  mode", "golden" );
         }

@@ -30,6 +30,7 @@ public class BallController : MonoBehaviour
     private PlayerModel playerModel;                        // Player 3D model logic class component.
     private AudioSource audioSource;                        // AudioSource component.
     
+    
 
     Rigidbody rb;                           // Rigibody component.
 
@@ -357,5 +358,14 @@ public class BallController : MonoBehaviour
     public void UpdateAdditionalState( string newState ) {
         this.additionalState = newState;
     }
+
+    /// <summary>
+    /// Set golden state.
+    /// </summary>
+    /// <param name="duration">float - golde state duration. Value coming from the collectible class.</param>
+    public void SetGoldenState( float duration ) {
+        StartCoroutine( playerModel.TriggerGoldenStateAnimation( duration ) );
+    } 
+    
 
 }
