@@ -196,27 +196,16 @@ public class BallController : MonoBehaviour
     /// OnTriggerEnter is called when the Collider other enters the trigger.
     /// </summary>
     /// <param name="other">The other Collider involved in this collision.</param>
-    void OnTriggerEnter(Collider other)
-    {
+    void OnTriggerEnter(Collider other) {  
+
+        // collect basic apple.
         if ( other.tag == "basicApple" ) {
-
             other.gameObject.GetComponentInChildren<BasicApple>().GetCollected();
-            /*
-            Legacy code form prototype
+        }
 
-            GameObject particles = Instantiate( particle, other.gameObject.transform.position, Quaternion.identity );
-
-            // score is duplicated if in boost mode.
-            int scoreToAdd = ( BallController.instance.inBoost ) ? 2 : 1;
-            UIManager.instance.UpdateScore( scoreToAdd );
-
-            // add text to the legend.
-            string legendText = ( BallController.instance.inBoost ) ? "points" : "point";
-            Legend.instance.AddText( "+" + scoreToAdd + " " + legendText );
-
-            Destroy( other.gameObject );
-            Destroy( particles, 1f );
-            */
+        // collect golden apple.
+        if ( other.tag == "goldenApple" ) {
+            other.gameObject.GetComponentInChildren<GoldenApple>().GetCollected();
         }
     }
 

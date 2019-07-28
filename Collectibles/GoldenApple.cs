@@ -6,6 +6,7 @@ public class GoldenApple : MonoBehaviour
 {
     private Animation animation;                            // Animation component.
     private AudioSource audio;                              // Audion source component.
+    private GameObject particles;                           // Golden apple particles gameObject.
 
     // Start is called before the first frame update
     void Start()
@@ -38,12 +39,18 @@ public class GoldenApple : MonoBehaviour
 
         // get audio source component.
         audio = GetComponent<AudioSource>();
+
+        // get particles child gameObject.
+        particles = transform.GetChild(1).gameObject;
     }
 
     /// <summary>
     /// Method to run when the apple is collected.
     /// </summary>
     public void GetCollected() {
+
+        // remove particles.
+        Destroy( particles );
 
         // stop bouncing animation an trigger collected animation.
         animation.Stop();
@@ -55,7 +62,7 @@ public class GoldenApple : MonoBehaviour
             // TODO: call enter golden state here.
 
             // add text to the legend.
-            Legend.instance.AddText( "Double points mode" );
+            Legend.instance.AddText( "Double  points  mode", "golden" );
         }
 
         // display collect sound.

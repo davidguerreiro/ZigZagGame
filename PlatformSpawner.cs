@@ -6,6 +6,8 @@ public class PlatformSpawner : MonoBehaviour
 {
     public GameObject platform;                     // Platforms gameObject.
     public GameObject basicApple;                   // Basic apple collectible.
+    public GameObject goldenApple;                  // Golden apple collectible.
+    public bool hasItem = false;                    // Checks if the platform has already spawned an item.
     Vector3 lastPos;
     float size;
     bool gameOver;
@@ -55,6 +57,24 @@ public class PlatformSpawner : MonoBehaviour
 
         if ( rand < 1 ) {
             Instantiate( basicApple, new Vector3( pos.x, pos.y + 1, pos.z ), basicApple.transform.rotation );
+            hasItem = true;
+        } else {
+            hasItem = false;
+        }
+    }
+
+    /// <summary>
+    /// Spawn a golden apple collectible.
+    /// </summary>
+    /// <param name="pos">vector3 - current instantiate platform position to instantiate the golden apple</param>
+    private void SpawnGoldenApple( Vector3 pos ) {
+        int rand = Random.Range( 0, 10 );
+
+        if ( rand < 1 ) {
+            Instantiate( goldenApple, new Vector3( pos.x, pos.y + 1, pos.z ), goldenApple.transform.rotation );
+            hasItem = true;
+        } else {
+            hasItem = false;
         }
     }
 
@@ -67,8 +87,13 @@ public class PlatformSpawner : MonoBehaviour
         lastPos = pos;
         Instantiate( platform, pos, Quaternion.identity );
 
-        // instantiate diamond
+        // instantiate normal apple.
         SpawnBasicApple( pos );
+
+        // instantiate a golden apple if no item has been instantiated.
+        if ( ! hasItem ) {
+            SpawnGoldenApple( pos );
+        }
     }
 
     /// <summary>

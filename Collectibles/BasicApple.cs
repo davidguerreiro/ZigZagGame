@@ -10,14 +10,12 @@ public class BasicApple : MonoBehaviour
     private AudioSource audio;                              // Audion source component.
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         Init();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
         // rotate collectible every frame.
         RotateCollectible();
