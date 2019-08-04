@@ -8,10 +8,13 @@ public class PlatformSpawner : MonoBehaviour
     public GameObject basicApple;                   // Basic apple collectible.
     public GameObject goldenApple;                  // Golden apple collectible.
     public GameObject chiliApple;                   // Chili apple collectible.
+    public Material alternative;                    // Alternative material to use on the spawned platform when it has an item.
     public bool hasItem = false;                    // Checks if the platform has already spawned an item.
-    Vector3 lastPos;
-    float size;
-    bool gameOver;
+
+    private Vector3 lastPos;
+    private float size;
+    private bool gameOver;
+    private GameObject platformReference;           // Reference to the last instantiate platform.
 
     // random items rations.
     private int basicAppleRatio = 4;                // Maximun ratio for spawning basic apples.
@@ -40,7 +43,7 @@ public class PlatformSpawner : MonoBehaviour
         Vector3 pos = lastPos;
         pos.x += size;
         lastPos = pos;
-        Instantiate( platform, pos, Quaternion.identity );
+        platformReference = Instantiate( platform, pos, Quaternion.identity );
 
         // instantiate basic apple.
         SpawnBasicApple( pos );
@@ -53,6 +56,12 @@ public class PlatformSpawner : MonoBehaviour
         // instantiate chili apple if possible.
         if ( ! hasItem ) {
             SpawnChiliApple( pos );
+        }
+
+        // if the platform has item, set material as alternative.
+        if ( hasItem ) {
+            platformReference.GetComponent<Renderer>().material = alternative;
+            Debug.Log(platformReference.GetComponent<Renderer>().material.name );
         }
     }
 
