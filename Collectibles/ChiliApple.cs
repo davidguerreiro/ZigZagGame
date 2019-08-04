@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ChiliApple : MonoBehaviour {
 
+    public AudioClip negativeSoundClip;                 // No effect sound clip reference.
     private Animation animation;                        // Animation component reference.
     private AudioSource audio;                          // Audio component reference.
     private GameObject particles;                       // Chili apple particles gameObject reference.
@@ -60,16 +61,28 @@ public class ChiliApple : MonoBehaviour {
         // set player in chili mode - speed is set to max speed for 10 seconds. No boost allowed and no boost bonifications.
         if ( BallController.instance.additionalState == "none" ) {
 
+            // display collected sound.
+            audio.Play();
+
             // set player 3D model in chili state.
             BallController.instance.SetChiliStatus( stateDuration );
 
             // add text to legend.
             Legend.instance.AddText( "Double speed mode", "golden" );
+        } else {
+            ReproduceNoEffectSound();
         }
 
-        // display collected sound.
-        audio.Play();
-
         Destroy( this.gameObject, 1f );
+    }
+
+    /// <summary>
+    /// Display uncollected collectible sound.
+    /// Usually this sound is displayed when
+    /// the item has no effect.
+    /// </summary>
+    private void ReproduceNoEffectSound() {
+        audio.clip = negativeSoundClip;
+        audio.Play();
     }
 }

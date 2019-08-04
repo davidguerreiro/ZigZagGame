@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldenApple : MonoBehaviour
-{
+public class GoldenApple : MonoBehaviour {  
+    
+    public AudioClip negativeSoundClip;                              // No effect sound clip reference.
     private Animation animation;                            // Animation component.
     private AudioSource audio;                              // Audion source component.
     private GameObject particles;                           // Golden apple particles gameObject.
@@ -61,16 +62,31 @@ public class GoldenApple : MonoBehaviour
         // set player in golden mode - double points for each collected apple.
         if ( BallController.instance.additionalState == "none" ) {
 
+            // display collect sound.
+            audio.Play();
+
             // set player 3d model in golden state.
             BallController.instance.SetGoldenState( stateDuration );
             
             // add text to the legend.
             Legend.instance.AddText( "Double  points  mode", "golden" );
+        } else {
+            
+            // golden apple has no effect.
+            ReproduceNoEffectSound();
         }
-
-        // display collect sound.
-        audio.Play();
 
         Destroy( this.gameObject, 1f );
     }
+
+    /// <summary>
+    /// Display uncollected collectible sound.
+    /// Usually this sound is displayed when
+    /// the item has no effect.
+    /// </summary>
+    private void ReproduceNoEffectSound() {
+        audio.clip = negativeSoundClip;
+        audio.Play();
+    }
+    
 }
