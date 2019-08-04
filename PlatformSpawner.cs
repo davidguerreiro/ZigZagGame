@@ -15,20 +15,13 @@ public class PlatformSpawner : MonoBehaviour
 
     // random items rations.
     private int basicAppleRatio = 4;                // Maximun ratio for spawning basic apples.
-    private int goldenAppleRatio = 50;              // Maximun ratio for spawning golden apples.
-    private int chiliAppleRatio = 58;               // Maximun ratio for spawning chili apples.
+    private int goldenAppleRatio = 55;              // Maximun ratio for spawning golden apples.
+    private int chiliAppleRatio = 70;               // Maximun ratio for spawning chili apples.
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         Init();
          
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void SpawnPlatforms() {

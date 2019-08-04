@@ -46,6 +46,9 @@ public class PlayerModel : MonoBehaviour
         yield return new WaitForSeconds( finishAnimationTime );
         //animation.clip = animation.GetClip( "playerBouncing" );
         //animation.Play();
+
+        // display player dust particle animation.
+        EnableDust();
     }
 
     /// <summary>
@@ -71,6 +74,9 @@ public class PlayerModel : MonoBehaviour
         yield return new WaitForSeconds( finishAnimationTime );
         //animation.clip = animation.GetClip( "playerBouncing" );
         //animation.Play();
+
+        // display player dust particle animation.
+        EnableDust();
     }
 
     /// <summary>
@@ -266,5 +272,31 @@ public class PlayerModel : MonoBehaviour
 
         // set player to default color.
         StartCoroutine( ChangeColor( currentColor, colors[0] ) );
+    }
+
+    /// <summary>
+    /// Play / Enable dust particle effect
+    /// in the player.
+    /// </summary>
+    public void EnableDust() {
+        if ( ! particles[1].gameObject.activeSelf ) {
+            particles[1].gameObject.SetActive( true );
+        }
+
+        particles[1].Play();
+    }
+
+    /// <summary>
+    /// Stop dust. To disable particles
+    /// pass true as a parameter.
+    /// </summary>
+    /// <param name="toDisable">bool - optional. Whether to totally disable the particle system. False by default</param>
+    public void StopDust( bool toDisable = false ) {
+        particles[1].Stop();
+        Debug.Log( "called stop" );
+
+        if ( toDisable ) {
+            particles[1].gameObject.SetActive( false );
+        }
     }
 }

@@ -107,6 +107,9 @@ public class BallController : MonoBehaviour
         // set switch quick direction speed sound and play it only if in boost mode.
         SetSoundClip( 2 );
 
+        // remove dust particles.
+        playerModel.StopDust( true );
+
         if ( inBoost || additionalState == "chili" ) {
             PlaySound();
         }
@@ -188,6 +191,9 @@ public class BallController : MonoBehaviour
         // start playing level music.
         LevelLoaderMusic.instance.PlayLevelMusic();
 
+        // display dust animation.
+        playerModel.EnableDust();
+
 
         // start game.
         // GameManager.instance.StartGame();
@@ -229,6 +235,9 @@ public class BallController : MonoBehaviour
     private IEnumerator ReduceSpeed() {
         float uiSpeed = 0f;
         canBoost = false;
+
+        // stop dust animation.
+        playerModel.StopDust();
 
         // display accumulate energy animation.
         playerModel.AccumulateSpeedAnimation();
@@ -283,6 +292,9 @@ public class BallController : MonoBehaviour
         // set release energy sound clip and play it.
         SetSoundClip( 2 );
         PlaySound();
+
+        // display dust particles animation.
+        playerModel.EnableDust();
 
         // display release bost animation.
         playerModel.ReleaseSpeedAnimation();

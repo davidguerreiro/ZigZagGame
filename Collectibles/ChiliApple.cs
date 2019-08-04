@@ -7,7 +7,7 @@ public class ChiliApple : MonoBehaviour {
     private Animation animation;                        // Animation component reference.
     private AudioSource audio;                          // Audio component reference.
     private GameObject particles;                       // Chili apple particles gameObject reference.
-    private float stateDuration = 9f;                  // Chili state boost duration.
+    private float stateDuration = 6f;                  // Chili state boost duration.
 
     // Start is called before the first frame update
     void Start() {
