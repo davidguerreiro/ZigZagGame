@@ -107,7 +107,7 @@ public class BallController : MonoBehaviour
         // set switch quick direction speed sound and play it only if in boost mode.
         SetSoundClip( 2 );
 
-        if ( inBoost ) {
+        if ( inBoost || additionalState == "chili" ) {
             PlaySound();
         }
 
@@ -208,6 +208,11 @@ public class BallController : MonoBehaviour
         if ( other.tag == "goldenApple" ) {
             other.gameObject.GetComponentInChildren<GoldenApple>().GetCollected();
         }
+
+        // collect chili apple.
+        if ( other.tag == "chiliApple" ) {
+            other.gameObject.GetComponentInChildren<ChiliApple>().GetCollected();
+        }
     }
 
     /// <summary>
@@ -294,8 +299,33 @@ public class BallController : MonoBehaviour
         // stay in boost as much seconds as accumulated by the player.
         yield return new WaitForSeconds( toWait / reducer );
 
-        // reduce maxSped to baseSpeed in the UI.
-        SpeedValue.instance.TriggerUISpeedAction( "normalReducer" );
+        // display get back to base speed animation.
+        playerModel.SetSpeedToBaseSpeedAnimation();
+
+        if ( additionalState != "chili" ) {
+
+            // reduce maxSped to baseSpeed in the UI.
+            SpeedValue.instance.TriggerUISpeedAction( "normalReducer" );
+            
+            while ( speed > minSpeed ) {
+                speed--;
+                UpdateSpeed();
+
+                // trigger UI speed reduce speed animation.
+                yield return new WaitForSeconds( boostAcummulationSpeed );
+            }
+
+
+            canBoost = true;
+        }
+
+        inBoost = false;
+    }
+
+    /// <summary>
+    /// Reduce player speed to base speed.
+    /// </summary>
+    public IEnumerator ToBaseSpeed() {
         while ( speed > minSpeed ) {
             speed--;
             UpdateSpeed();
@@ -303,12 +333,6 @@ public class BallController : MonoBehaviour
             // trigger UI speed reduce speed animation.
             yield return new WaitForSeconds( boostAcummulationSpeed );
         }
-
-        // display get back to base speed animation.
-        playerModel.SetSpeedToBaseSpeedAnimation();
-
-        canBoost = true;
-        inBoost = false;
     }
 
     /// <summary>
@@ -366,6 +390,26 @@ public class BallController : MonoBehaviour
     public void SetGoldenState( float duration ) {
         StartCoroutine( playerModel.TriggerGoldenStateAnimation( duration ) );
     } 
+
+    /// <summary>
+    /// Set chili state.
+    /// </summary>
+    /// <param name="duration">float - chilo state duration. Value coming from the collectible class.</param>
+    public void SetChiliStatus( float duration ) {
+        
+        // boost not allowed during chili status.
+        if ( inBoost ) {
+            inBoost = false;
+        }
+
+        canBoost = false;
+
+        // set speed to max speed.
+        speed = maxSpeed;
+        UpdateSpeed();
+
+        StartCoroutine( playerModel.TriggerChiliStateAnimation( duration ) );
+    }
     
 
 }

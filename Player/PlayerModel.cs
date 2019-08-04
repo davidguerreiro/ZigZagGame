@@ -148,6 +148,13 @@ public class PlayerModel : MonoBehaviour
             _currentColor = colors[0];
         }
 
+        // check if the current color is the chilo state color.
+        if ( BallController.instance.additionalState == "chili" ) {
+            _currentColor = colors[3];
+        } else {
+            _currentColor = colors[0];
+        }
+
         return _currentColor;
     }
 
@@ -175,6 +182,52 @@ public class PlayerModel : MonoBehaviour
 
         // set player to original color when the speed is set to baseSpeed.
         StartCoroutine( ChangeColor( colors[1], currentColor ) );
+    }
+
+    /// <summary>
+    /// Set player in chili mode.
+    /// In this state the base speed is the
+    /// boost speed for 10 seconds.
+    /// Typically this mode is set after
+    /// the player collects a chili apple.
+    /// </summary>
+    /// <param name="duration">float - chili state boost duration</param>
+    public IEnumerator TriggerChiliStateAnimation( float duration ) {
+
+        // get current color.
+        Color currentColor = GetCurrentColor();
+
+        // set player state.
+        BallController.instance.UpdateAdditionalState( "chili" );
+
+        // change player color to golden state.
+        StartCoroutine( ChangeColor( currentColor, colors[3] ) );
+
+        yield return new WaitForSeconds( duration );
+        StartCoroutine( RemoveChiliStatus() );
+    }
+
+    /// <summary>
+    /// Remove chili status and set
+    /// player in normal status.
+    /// </summary>
+    public IEnumerator RemoveChiliStatus() {
+
+        // get current color.
+        Color currentColor = GetCurrentColor();
+
+        // set player state to default.
+        BallController.instance.UpdateAdditionalState( "none" );
+
+        // set player to default color.
+        StartCoroutine( ChangeColor( currentColor, colors[0] ) );
+
+        // set speed to base speed.
+        StartCoroutine( BallController.instance.ToBaseSpeed() );
+
+        // allow boost again.
+        yield return new WaitForSeconds( 1f );
+        BallController.instance.canBoost = true;
     }
 
 

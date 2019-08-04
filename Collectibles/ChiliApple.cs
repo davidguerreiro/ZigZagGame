@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldenApple : MonoBehaviour
-{
-    private Animation animation;                            // Animation component.
-    private AudioSource audio;                              // Audion source component.
-    private GameObject particles;                           // Golden apple particles gameObject.
-    private float stateDuration = 6f;                       // Golden state boost duration.
+public class ChiliApple : MonoBehaviour {
+
+    private Animation animation;                        // Animation component reference.
+    private AudioSource audio;                          // Audio component reference.
+    private GameObject particles;                       // Chili apple particles gameObject reference.
+    private float stateDuration = 9f;                  // Chili state boost duration.
 
     // Start is called before the first frame update
-    void Start()
-    {
-        Init();
+    void Start() {
+        Init();   
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() { 
         
         // rotate collectible every frame.
         RotateCollectible();
@@ -46,29 +44,30 @@ public class GoldenApple : MonoBehaviour
     }
 
     /// <summary>
-    /// Method to run when the apple is collected.
+    /// Method to run when the chili apple
+    /// is collected.
     /// </summary>
     public void GetCollected() {
 
         // remove particles.
         Destroy( particles );
 
-        // stop bouncing animation an trigger collected animation.
+        // stop bouncing animation and trigger collected animation.
         animation.Stop();
         animation.clip = animation.GetClip( "apple-collected" );
         animation.Play();
 
-        // set player in golden mode - double points for each collected apple.
+        // set player in chili mode - speed is set to max speed for 10 seconds. No boost allowed and no boost bonifications.
         if ( BallController.instance.additionalState == "none" ) {
 
-            // set player 3d model in golden state.
-            BallController.instance.SetGoldenState( stateDuration );
-            
-            // add text to the legend.
-            Legend.instance.AddText( "Double  points  mode", "golden" );
+            // set player 3D model in chili state.
+            BallController.instance.SetChiliStatus( stateDuration );
+
+            // add text to legend.
+            Legend.instance.AddText( "Double speed mode", "golden" );
         }
 
-        // display collect sound.
+        // display collected sound.
         audio.Play();
 
         Destroy( this.gameObject, 1f );

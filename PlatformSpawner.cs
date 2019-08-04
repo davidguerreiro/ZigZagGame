@@ -7,6 +7,7 @@ public class PlatformSpawner : MonoBehaviour
     public GameObject platform;                     // Platforms gameObject.
     public GameObject basicApple;                   // Basic apple collectible.
     public GameObject goldenApple;                  // Golden apple collectible.
+    public GameObject chiliApple;                   // Chili apple collectible.
     public bool hasItem = false;                    // Checks if the platform has already spawned an item.
     Vector3 lastPos;
     float size;
@@ -14,7 +15,8 @@ public class PlatformSpawner : MonoBehaviour
 
     // random items rations.
     private int basicAppleRatio = 4;                // Maximun ratio for spawning basic apples.
-    private int goldenAppleRatio = 45;              // Maximun ratio for spawning golden apples.
+    private int goldenAppleRatio = 50;              // Maximun ratio for spawning golden apples.
+    private int chiliAppleRatio = 58;               // Maximun ratio for spawning chili apples.
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +52,16 @@ public class PlatformSpawner : MonoBehaviour
 
         // instantiate basic apple.
         SpawnBasicApple( pos );
+
+        // instantiate golden apple if possible.
+        if ( ! hasItem ) {
+            SpawnGoldenApple( pos );
+        }
+
+        // instantiate chili apple if possible.
+        if ( ! hasItem ) {
+            SpawnChiliApple( pos );
+        }
     }
 
     /// <summary>
@@ -83,6 +95,21 @@ public class PlatformSpawner : MonoBehaviour
     }
 
     /// <summary>
+    /// Spawn a chili appple collectible.
+    /// </summary>
+    /// <param name="pos">Vector3 - current instantiate platform position to instantiate the chili apple</param>
+    private void SpawnChiliApple( Vector3 pos ) {
+        int rand = Random.Range( 0, chiliAppleRatio );
+
+        if ( rand < 1 ) {
+            Instantiate( chiliApple, new Vector3( pos.x, pos.y + 1, pos.z ), chiliApple.transform.rotation );
+            hasItem = true;
+        } else {
+            hasItem = false;
+        }
+    }
+
+    /// <summary>
     /// Spawn a platform in the Z axis.
     /// </summary>
     private void SpawnZ() {
@@ -97,6 +124,11 @@ public class PlatformSpawner : MonoBehaviour
         // instantiate a golden apple if no item has been instantiated.
         if ( ! hasItem ) {
             SpawnGoldenApple( pos );
+        }
+
+        // instantiate chili apple if possible.
+        if ( ! hasItem ) {
+            SpawnChiliApple( pos );
         }
     }
 
