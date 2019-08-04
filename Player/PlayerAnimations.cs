@@ -45,7 +45,6 @@ public class PlayerAnimations : MonoBehaviour
 
         while ( status == "standard" ) {
             Quaternion q = transform.rotation;
-            // Debug.Log( transform.rotation.x );
             transform.Rotate( 1f, 0, 0 );
             yield return null;
         }

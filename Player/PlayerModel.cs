@@ -42,13 +42,13 @@ public class PlayerModel : MonoBehaviour
         animation.clip = animation.GetClip( "playerMoveRight" );
         animation.Play();
 
+        // display player dust particle animation.
+        EnableDust();
+
         // wait till animation finishes and then restore bouncing animation.
         yield return new WaitForSeconds( finishAnimationTime );
         //animation.clip = animation.GetClip( "playerBouncing" );
         //animation.Play();
-
-        // display player dust particle animation.
-        EnableDust();
     }
 
     /// <summary>
@@ -70,13 +70,13 @@ public class PlayerModel : MonoBehaviour
         animation.clip = animation.GetClip( "playerMoveLeft" );
         animation.Play();
 
+        // display player dust particle animation.
+        EnableDust();
+
         // wait till animation finishes and then restore bouncing animation.
         yield return new WaitForSeconds( finishAnimationTime );
         //animation.clip = animation.GetClip( "playerBouncing" );
         //animation.Play();
-
-        // display player dust particle animation.
-        EnableDust();
     }
 
     /// <summary>
@@ -144,7 +144,7 @@ public class PlayerModel : MonoBehaviour
         if ( BallController.instance.inBoost ) {
             _currentColor = colors[1];
         } else {
-            _currentColor = colors[2];
+            _currentColor = colors[0];
         }
 
         // check if the current color is the golden state color.
@@ -155,11 +155,13 @@ public class PlayerModel : MonoBehaviour
         }
 
         // check if the current color is the chilo state color.
+        /*
         if ( BallController.instance.additionalState == "chili" ) {
             _currentColor = colors[3];
         } else {
             _currentColor = colors[0];
         }
+        */
 
         return _currentColor;
     }
@@ -293,7 +295,6 @@ public class PlayerModel : MonoBehaviour
     /// <param name="toDisable">bool - optional. Whether to totally disable the particle system. False by default</param>
     public void StopDust( bool toDisable = false ) {
         particles[1].Stop();
-        Debug.Log( "called stop" );
 
         if ( toDisable ) {
             particles[1].gameObject.SetActive( false );
