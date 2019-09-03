@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloseButton : MonoBehaviour {
+public class StopGamePanel : MonoBehaviour {
 
+    public bool isDisplayed = false;                        // Flag to check whether the panel is displayed in the game.
     private Animation animation;                            // Animation component reference.
 
     // Start is called before the first frame update
@@ -12,28 +13,31 @@ public class CloseButton : MonoBehaviour {
     }
 
     /// <summary>
-    /// Hover animation trigger method.
+    /// Display stop game panel.
     /// </summary>
     /// <returns>void</returns>
-    public void HoverAnimation() {
-        Utils.instance.TriggerAnimation( animation, "CloseHowToPlayHover" );
+    public void DisplayPanel() {
+        Utils.instance.TriggerAnimation( animation, "DisplayStopGamePanel" );
+        isDisplayed = true;
     }
 
     /// <summary>
-    /// Unhover animation trigger method.
+    /// Hide stop game panel.
     /// </summary>
     /// <returns>void</returns>
-    public void UnHoverAnimation() {
-        Utils.instance.TriggerAnimation( animation, "CloseHowToPlayUnHover" );
+    public void HidePanel() {
+        Utils.instance.TriggerAnimation( animation, "HideStopGamePanel" );
+        isDisplayed = false;
     }
 
     /// <summary>
     /// Init class method.
     /// </summary>
-    /// <returns>void</returns>
+    /// <returns>void></return>
     private void Init() {
 
         // get animation component reference.
         animation = GetComponent<Animation>();
     }
+
 }

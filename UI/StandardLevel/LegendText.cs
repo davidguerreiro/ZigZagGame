@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LegendText : MonoBehaviour
-{
+public class LegendText : MonoBehaviour {
     private Text text;                              // Text component.
     private bool inScreen = true;                   // Flag to control wheter the text can be in the screen.
     private float lifespan = 2f;                    // Number of seconds that the text can be in the screen.
