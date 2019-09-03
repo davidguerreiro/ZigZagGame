@@ -12,8 +12,9 @@ public class UIManager : MonoBehaviour {
     public GameObject startText;                    // UI start text gameObject.
     public Score score;                             // Score class.
     public Lifes lifes;                             // Lifes class.
-    public StopGamePanel stopGamePanel;             // Stop game panel class component refernce.
+    public GameObject stopGamePanel;                // Stop game panel gameObject reference.
     public HowToPlayPanel howToPlayPanel;           // How to play panel class component reference.
+    private StopGamePanel stopGamePanelClass;       // Stop game panel class component reference.
 
 
     /// <summary>
@@ -23,6 +24,14 @@ public class UIManager : MonoBehaviour {
         if ( instance == null ) {
             instance = this;
         }
+    }
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start() {
+        Init();
     }
 
     /// <summary>
@@ -55,8 +64,13 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     /// <returns>void</returns>
     public void DisplayHowToPlay() {
-        if ( ! stopGamePanel.isDisplayed && ! howToPlayPanel.isDisplayed ) {
-            stopGamePanel.DisplayPanel();
+        // stop game panel might be disabled.
+        if ( stopGamePanel.active == false ) {
+            stopGamePanel.SetActive( true );
+        }
+
+        if ( ! stopGamePanelClass.isDisplayed && ! howToPlayPanel.isDisplayed ) {
+            stopGamePanelClass.DisplayPanel();
             howToPlayPanel.DisplayPanel();
         }
     }
@@ -67,9 +81,22 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     /// <returns>void</returns>
     public void HideHowToPlay() {
-        if ( stopGamePanel.isDisplayed && howToPlayPanel.isDisplayed ) {
-            stopGamePanel.HidePanel();
+        if ( stopGamePanelClass.isDisplayed && howToPlayPanel.isDisplayed ) {
+            StartCoroutine( stopGamePanelClass.HidePanel() );
             howToPlayPanel.HidePanel();
+        }
+    }
+
+    /// <summary>
+    /// Init class method.
+    /// </summary>
+    /// <returns>void</returns>
+    private void Init() {
+        // get stop game panel class reference - this is done beacuse this script needs the real gameobject to check if it is enabled before calling functions.
+        if ( stopGamePanel.active == false ) {
+            stopGamePanel.SetActive( true );
+            stopGamePanelClass = stopGamePanel.GetComponent<StopGamePanel>();
+            stopGamePanel.SetActive( false );
         }
     }
 }

@@ -137,7 +137,7 @@ public class BallController : MonoBehaviour
     private void InputConroller() {
 
         // Check wheter the user starts playing.
-        if ( ! started ) {
+        if ( ! started && ! UIManager.instance.howToPlayPanel.isDisplayed ) {
             if ( Input.GetMouseButtonDown( 0 ) ) {
                 Init();
                 started = true;

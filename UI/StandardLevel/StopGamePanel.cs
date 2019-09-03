@@ -7,8 +7,10 @@ public class StopGamePanel : MonoBehaviour {
     public bool isDisplayed = false;                        // Flag to check whether the panel is displayed in the game.
     private Animation animation;                            // Animation component reference.
 
-    // Start is called before the first frame update
-    void Start() {
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake() {
         Init();
     }
 
@@ -25,9 +27,13 @@ public class StopGamePanel : MonoBehaviour {
     /// Hide stop game panel.
     /// </summary>
     /// <returns>void</returns>
-    public void HidePanel() {
+    public IEnumerator HidePanel() {
         Utils.instance.TriggerAnimation( animation, "HideStopGamePanel" );
+
+        // disable panel when the animation is done.
+        yield return new WaitForSeconds( 1f );
         isDisplayed = false;
+        gameObject.SetActive( false );
     }
 
     /// <summary>
