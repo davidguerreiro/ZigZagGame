@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformSpawner : MonoBehaviour
-{
+public class PlatformSpawner : MonoBehaviour {
     public GameObject platform;                     // Platforms gameObject.
     public GameObject basicApple;                   // Basic apple collectible.
     public GameObject goldenApple;                  // Golden apple collectible.
@@ -61,7 +60,6 @@ public class PlatformSpawner : MonoBehaviour
         // if the platform has item, set material as alternative.
         if ( hasItem ) {
             platformReference.GetComponent<Renderer>().material = alternative;
-            Debug.Log(platformReference.GetComponent<Renderer>().material.name );
         }
     }
 
