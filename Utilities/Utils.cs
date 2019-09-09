@@ -20,10 +20,18 @@ public class Utils : MonoBehaviour {
     /// </summary>
     /// <param name="animation">Animation - animation component reference.</param>
     /// <param name="clipName">string - clip name to be played</param>
+    /// <param name="loop">bool - wheter to keep playing the animtion in a loop</param>
     /// <returns>void</returns>
-    public void TriggerAnimation( Animation animation, string clipName ) {
+    public void TriggerAnimation( Animation animation, string clipName, bool loop = false ) {
         if ( animation.isPlaying ) {
             animation.Stop();
+        }
+
+        // set animation to play in a loop if required.
+        if ( loop ) {
+            animation.wrapMode = WrapMode.Loop;
+        } else {
+            animation.wrapMode = WrapMode.Once;
         }
 
         // get clip from animation array of clips.
