@@ -34,6 +34,7 @@ public class AnimatedBall : MonoBehaviour {
         // show display ball animation.
         Utils.instance.TriggerAnimation( animation, displayAnimation );
         yield return new WaitForSeconds( toWait );
+        isDisplayed = true;
 
         // show bounciness animation.
         Utils.instance.TriggerAnimation( animation, bouncingAnimation );
