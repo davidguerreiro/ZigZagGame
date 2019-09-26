@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DescriptionPanel : MonoBehaviour {
     
     public bool isDisplayed = false;                                // Description panel status.
+    public Text description;                                        // Description text component reference.
     public AnimatedBall[] animatedBalls = new AnimatedBall[3];      // UI Animated balls array reference.
     private Animation animation;
 
@@ -21,6 +23,16 @@ public class DescriptionPanel : MonoBehaviour {
 
         // get animation component reference.
         animation = GetComponent<Animation>();
+    }
+
+    /// <summary>
+    /// Update description in the
+    /// description panel.
+    /// </summary>
+    /// <param name="content">string - new description text</param>
+    /// <returns>void</returns>
+    public void UpdateDescription( string content ) {
+        description.text = content;
     }
 
     /// <summary>

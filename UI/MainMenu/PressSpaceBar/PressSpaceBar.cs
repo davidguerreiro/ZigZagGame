@@ -5,6 +5,7 @@ using UnityEngine;
 public class PressSpaceBar : MonoBehaviour {
 
     public bool isDisplayed = false;                    // Component status flag.
+    public AnimatedText animatedText;                   // Animated text component reference.
     private Animation animation;                        // Animation component reference.
 
     // Start is called before the first frame update
