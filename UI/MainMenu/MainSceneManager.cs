@@ -87,7 +87,7 @@ public class MainSceneManager : MonoBehaviour
         yield return new WaitForSeconds( 1f );
 
         // display menus.
-        // StartCoroutine( MainMenuManager.instance.DisplayMainMenu() );
+        StartCoroutine( MainMenuManager.instance.mainMenu.DisplayMainMenu() );
         StartCoroutine( MainMenuManager.instance.descriptionPanel.DisplayPanel() );
     }
 }

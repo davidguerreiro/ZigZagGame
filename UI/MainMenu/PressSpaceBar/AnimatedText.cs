@@ -38,4 +38,12 @@ public class AnimatedText : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Stop text animation.
+    /// </summary>
+    /// <returns>void</returns>
+    public void StopTextAnimation() {
+        this.inAnimation = false;
+    }
+
 }

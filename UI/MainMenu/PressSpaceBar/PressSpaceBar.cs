@@ -38,5 +38,6 @@ public class PressSpaceBar : MonoBehaviour {
     /// <returns>void</returns>
     public void HidePanel() {
         Utils.instance.TriggerAnimation( animation, "HideSpaceBarComponent" );
+        animatedText.StopTextAnimation();
     }
 }

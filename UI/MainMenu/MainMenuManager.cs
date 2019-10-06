@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour {
     public static MainMenuManager instance;             // Create public instance for this manager to be called from other scripts.
     public Text maintTitle;                             // Main title text component.
-    public GameObject mainMenu;                         // Main menu UI panel gameObject.
     public AudioClip startGameSound;                    // Start game sound clip.
     public SceneCover sceneCover;                       // Scene cover class component to make screen transition smoother.
     private float fadeSpeed = 0.8f;                     // Main title fade in speed.
@@ -18,6 +17,7 @@ public class MainMenuManager : MonoBehaviour {
     // new components.
     public DescriptionPanel descriptionPanel;           // Description panel component class reference.
     public PressSpaceBar pressSpaceBarComponent;        // Press space bar game component class refernce.
+    public MainMenu mainMenu;                           // Main menu game component class reference.
 
 
 
@@ -74,23 +74,6 @@ public class MainMenuManager : MonoBehaviour {
 
         // start press space bar text animation.
         StartCoroutine( pressSpaceBarComponent.animatedText.Animate() );
-    }
-
-    /// <summary>
-    /// Display main menu in
-    /// the scene.
-    /// </summary>
-    public IEnumerator DisplayMainMenu() {
-        float toMove = 1507f;                   // Final position for the main menu in the screen.
-        mainMenu.SetActive( true );
-
-        while ( mainMenu.transform.position.x > toMove ) {
-            mainMenu.transform.position = new Vector2( mainMenu.transform.position.x - ( mainMenuMovementSpeed * Time.deltaTime ), mainMenu.transform.position.y );
-            yield return null;
-        }
-
-        // fix variants in the position after the animation.
-        mainMenu.transform.position =  new Vector2( toMove, mainMenu.transform.position.y );
     }
 
     /// <summary>
