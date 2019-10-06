@@ -37,6 +37,7 @@ public class AnimatedBall : MonoBehaviour {
         isDisplayed = true;
 
         // show bounciness animation.
-        Utils.instance.TriggerAnimation( animation, bouncingAnimation );
+        animation[ bouncingAnimation ].wrapMode = WrapMode.Loop;
+        Utils.instance.TriggerAnimation( animation, bouncingAnimation, true );
     }
 }

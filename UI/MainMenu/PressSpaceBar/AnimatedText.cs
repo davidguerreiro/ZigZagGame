@@ -11,7 +11,7 @@ public class AnimatedText : MonoBehaviour {
     /// </summary>
     /// <returns>IEnumerator</returns>
     public IEnumerator Animate() {
-        float toWait = 1f;                          // Seconds to wait between letters animaiton in animation loop.
+        float toWait = 0.1f;                          // Seconds to wait between letters animaiton in animation loop.
         float toWaitAfter = 2f;                     // Seconds to wait between each set of animation.
 
         inAnimation = true;

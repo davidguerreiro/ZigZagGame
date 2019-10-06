@@ -30,7 +30,7 @@ public class MainSceneManager : MonoBehaviour
 
         // check if the player can open the menus.
         if ( readyForMenu && Input.GetKeyDown( "space" ) ) {
-            DisplayMainMenus();
+            StartCoroutine( DisplayMainMenus() );
             readyForMenu = false;
         }
     }
@@ -71,8 +71,6 @@ public class MainSceneManager : MonoBehaviour
         StartCoroutine( MainMenuManager.instance.DisplayMainTitle() );
         yield return new WaitForSeconds( 0.5f );
 
-        // display space bar text.
-        MainMenuManager.instance.ToggleSpaceBarText( true );
         readyForMenu = true;
     }
 
@@ -80,15 +78,16 @@ public class MainSceneManager : MonoBehaviour
     /// Display main menu and 
     /// description bar panel.
     /// </summary>
-    private void DisplayMainMenus() {
+    private IEnumerator DisplayMainMenus() {
         // remove space bar text
-        MainMenuManager.instance.ToggleSpaceBarText( false );
+        MainMenuManager.instance.pressSpaceBarComponent.HidePanel();
 
         // display enter menu SFX.
         audio.Play();
+        yield return new WaitForSeconds( 1f );
 
         // display menus.
-        StartCoroutine( MainMenuManager.instance.DisplayMainMenu() );
-        StartCoroutine( MainMenuManager.instance.displayDescriptionBar() );
+        // StartCoroutine( MainMenuManager.instance.DisplayMainMenu() );
+        StartCoroutine( MainMenuManager.instance.descriptionPanel.DisplayPanel() );
     }
 }

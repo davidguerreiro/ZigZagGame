@@ -8,7 +8,7 @@ public class DescriptionPanel : MonoBehaviour {
     public bool isDisplayed = false;                                // Description panel status.
     public Text description;                                        // Description text component reference.
     public AnimatedBall[] animatedBalls = new AnimatedBall[3];      // UI Animated balls array reference.
-    private Animation animation;
+    private Animation animation;                                    // Animation component reference.
 
     // Start is called before the first frame update
     void Start() {
@@ -41,7 +41,7 @@ public class DescriptionPanel : MonoBehaviour {
     /// </summary>
     /// <returns>IEnumerator</returns>
     public IEnumerator DisplayPanel() {
-        float toWait = 1.5f;
+        float toWait = 1f;
 
         Utils.instance.TriggerAnimation( animation, "DisplayDescriptionPanel" );
         yield return new WaitForSeconds( toWait );
@@ -61,7 +61,7 @@ public class DescriptionPanel : MonoBehaviour {
 
         // display balls.
         foreach ( AnimatedBall ball in animatedBalls ) {
-            ball.DisplayBall();
+            StartCoroutine( ball.DisplayBall() );
             yield return new WaitForSeconds( toWait );
         }
     }
