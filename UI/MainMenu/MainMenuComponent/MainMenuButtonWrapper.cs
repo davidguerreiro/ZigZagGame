@@ -26,7 +26,7 @@ public class MainMenuButtonWrapper : MonoBehaviour {
     /// </summary>
     /// <returns>void</returns>
     public void onFocusLost() {
-        Utils.instance.TriggerAnimation( animation, "BUttonUnFocus" );
+        Utils.instance.TriggerAnimation( animation, "ButtonUnFocus" );
     }
 
     /// <summary>

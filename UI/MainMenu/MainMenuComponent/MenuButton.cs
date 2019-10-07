@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class MenuButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler {
+public class MenuButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler, IPointerExitHandler {
 
     public bool onFocus = false;                                    // Flag to control when this button is on focus.
     private MainMenuButtonWrapper buttonWrapper;                    // Button wrapper class component refernce. Coming from the parent, it is used for selectable button animations.
@@ -21,6 +21,9 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler {
     /// </summary>
     /// <returns>void</returns>
     private void Init() {
+
+        // get audio component reference.
+        audio = GetComponent<AudioSource>();
 
         // get button wrapper class component reference from parent.
         buttonWrapper = GetComponentInParent<MainMenuButtonWrapper>();
