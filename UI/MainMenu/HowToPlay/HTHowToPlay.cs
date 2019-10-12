@@ -46,10 +46,11 @@ public class HTHowToPlay : MonoBehaviour {
     public void DisplayPanel() {
 
         // display scene cover transparent.
+        sceneCover.gameObject.SetActive( true );
         sceneCover.ShowTransparency();
 
         // display panel.
-        Utils.instance.TriggerAnimation( animation, "DisplayPanel" );
+        Utils.instance.TriggerAnimation( animation, "DisplayPlanel" );
         this.SetPanelStatus( true );
     }
 
@@ -60,7 +61,7 @@ public class HTHowToPlay : MonoBehaviour {
     public void HidePanel() {
 
         // remove scene cover transparency.
-        sceneCover.HideTransparency();
+        StartCoroutine( sceneCover.HideTransparency() );
 
         // hide panel.
         Utils.instance.TriggerAnimation( animation, "HidePanel" );

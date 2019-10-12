@@ -64,8 +64,12 @@ public class SceneCover : MonoBehaviour
     /// <summary>
     /// Remove scene cover transparency.
     /// </summary>
-    /// <returns>void</returns>
-    public void HideTransparency() {
+    /// <returns>IEnumerator</returns>
+    public IEnumerator HideTransparency() {
         Utils.instance.TriggerAnimation( animation, "HideTransparent" );
+        
+        // disable the scene cover to allow the user to interact with other elements in the screen.
+        yield return new WaitForSeconds( .5f );
+        this.gameObject.SetActive( false );
     }
 }

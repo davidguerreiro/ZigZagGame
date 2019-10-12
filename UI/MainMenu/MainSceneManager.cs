@@ -54,6 +54,7 @@ public class MainSceneManager : MonoBehaviour
 
         // display player going to the center animation.
         yield return new WaitForSeconds( 9.5f );
+        sceneCover.gameObject.SetActive( false );
         scenePlayerAnimation.Play();
 
         // camera animation finished.
