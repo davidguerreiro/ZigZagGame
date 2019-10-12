@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HTCloseButton : MonoBehaviour {
     
+    public HTHowToPlay howToPlayPanel;                      // How to play panel class component reference.
     private Animation animation;                            // Animation component reference.
 
     // Start is called before the first frame update
@@ -25,6 +26,15 @@ public class HTCloseButton : MonoBehaviour {
     /// <returns>void</returns>
     public void LostHoverAnimation() {
         Utils.instance.TriggerAnimation( animation, "CloseButtonLostHover" );
+    }
+
+    /// <summary>
+    /// Hide panel when the close button
+    /// is clicked.
+    /// </summary>
+    /// <returns>void</returns>
+    public void ClickButton() {
+        howToPlayPanel.HidePanel();
     }
 
     /// <summary>
