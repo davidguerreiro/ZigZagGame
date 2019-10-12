@@ -37,7 +37,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler, I
     /// the game cursor.
     /// </summary>
     /// <returns>IEnumerator</returns>
-    private IEnumerator ButtonOnFocus() {
+    private void ButtonOnFocus() {
         float toWait = 2f;
 
         // set button new status.
@@ -47,8 +47,8 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler, I
         audio.Play();
         buttonWrapper.onFocus();
         
-        yield return new WaitForSeconds( toWait );
-        Utils.instance.TriggerAnimation( animation, "ButtonInFocus" );
+        // yield return new WaitForSeconds( toWait );
+        // Utils.instance.TriggerAnimation( animation, "ButonInFocus", true );
 
         // check if the button has lost the focus during the time the coroutine was being executed.
         if ( ! onFocus ) {
@@ -78,7 +78,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler, I
     /// <param name="eventData">PointerEventData - event data reference</param>
     /// <returns>void</returns>
     public void OnPointerEnter( PointerEventData eventData ) {
-        StartCoroutine( ButtonOnFocus() );
+        ButtonOnFocus();
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler, I
     /// <param name="eventData">BaseEventData - event data reference</param>
     /// <returns>void</returns>
     public void OnSelect( BaseEventData eventData ) {
-        StartCoroutine( ButtonOnFocus() );
+        ButtonOnFocus();
     }
 
     /// <summary>
