@@ -7,10 +7,10 @@ public class SceneCover : MonoBehaviour
 {
     public float speed = 0.8f;                                  // Fade in / out speed.
     private Image panel;                                        // Panel component image.
+    private Animation animation;                                // Animation component reference.
     
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         Init();
     }
 
@@ -18,8 +18,12 @@ public class SceneCover : MonoBehaviour
     /// Init class method.
     /// </summary>
     public void Init() {
+
         // get image component for fade in/out animations.
         panel = GetComponent<Image>();
+
+        // get animation component reference.
+        animation = GetComponent<Animation>();
     }
 
     /// <summary>
@@ -46,5 +50,22 @@ public class SceneCover : MonoBehaviour
 
         // fix variants in the animation.
         panel.color = new Color( panel.color.r, panel.color.g, panel.color.b, 0f );
+    }
+
+    /// <summary>
+    /// Display the scene cover
+    /// with transparency.
+    /// </summary>
+    /// <returns>void</returns>
+    public void ShowTransparency() {
+        Utils.instance.TriggerAnimation( animation, "ShowTransparent" );
+    }
+
+    /// <summary>
+    /// Remove scene cover transparency.
+    /// </summary>
+    /// <returns>void</returns>
+    public void HideTransparency() {
+        Utils.instance.TriggerAnimation( animation, "HideTransparent" );
     }
 }

@@ -90,4 +90,5 @@ public class MainSceneManager : MonoBehaviour
         StartCoroutine( MainMenuManager.instance.mainMenu.DisplayMainMenu() );
         StartCoroutine( MainMenuManager.instance.descriptionPanel.DisplayPanel() );
     }
+    
 }
