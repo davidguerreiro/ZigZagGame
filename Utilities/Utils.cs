@@ -5,6 +5,7 @@ using UnityEngine;
 public class Utils : MonoBehaviour {
 
     public static Utils instance;                       // Public class instance reference to make this class available in other scripts.
+    public Color[] skyColors;                             // Colors to be used in the camera main background for the sky. The color displayed is random.s
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -38,5 +39,17 @@ public class Utils : MonoBehaviour {
         animation.clip = animation.GetClip( clipName );
 
         animation.Play();
+    }
+
+    /// <summary>
+    /// Set sky background color.
+    /// </summary>
+    /// <returns>void</returns>
+    public void SetSkyColor() {
+        float threshold = 5f;
+        float rand = Random.Range( 0f, 10f );
+
+        // set camera sky background color.
+        Camera.main.backgroundColor = ( rand <= threshold ) ? skyColors[0] : skyColors[1];
     }
 }

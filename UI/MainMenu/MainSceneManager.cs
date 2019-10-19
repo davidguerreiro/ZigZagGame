@@ -15,6 +15,9 @@ public class MainSceneManager : MonoBehaviour
     void Start() {
         Init();
 
+        // set camera background sky color.
+        Utils.instance.SetSkyColor();
+
         // Start Scene anmation.
         StartCoroutine( StartScene() );
     }
