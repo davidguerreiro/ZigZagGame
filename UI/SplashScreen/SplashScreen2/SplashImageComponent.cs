@@ -22,7 +22,7 @@ public class SplashImageComponent : MonoBehaviour {
 
         switch ( this.type ) {
             case "piskel":
-                animationName = "DisplayPiskelLogo";
+                animationName = "DIsplayPiskelLogo";
                 break;
             case "unity":
                 animationName = "DisplayUnityLogo";

@@ -18,15 +18,8 @@ public class SplashScreen : MonoBehaviour
     private AnimationRectangle rectangle2Class;     // Rectangle 2 AnimationRectangle class component.
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         Init();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /// <summary>
@@ -140,7 +133,7 @@ public class SplashScreen : MonoBehaviour
         yield return new WaitForSeconds( 1.5f );
 
         // load main menu scene.
-        SceneManager.LoadScene( "MainMenu" );
+        SceneManager.LoadScene( "SplashScreen" );
 
     }
 
