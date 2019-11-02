@@ -15,7 +15,6 @@ public class GameTitle : MonoBehaviour {
     /// </summary>
     /// <returns>void</returns>
     public void DisplayTitle() {
-        Debug.Log( "display called" );
         Utils.instance.TriggerAnimation( animation, "DisplayGameTitle" );
     }
 
