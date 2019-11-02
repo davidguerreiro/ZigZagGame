@@ -15,6 +15,7 @@ public class MainMenuManager : MonoBehaviour {
     private AudioSource audio;                          // Audio Source component.
 
     // new components.
+    public GameTitle gameTitle;                         // Game title image component class reference.
     public DescriptionPanel descriptionPanel;           // Description panel component class reference.
     public PressSpaceBar pressSpaceBarComponent;        // Press space bar game component class refernce.
     public MainMenu mainMenu;                           // Main menu game component class reference.
@@ -59,13 +60,8 @@ public class MainMenuManager : MonoBehaviour {
     public IEnumerator DisplayMainTitle() {
         float toWait = 1f;
 
-        while ( maintTitle.color.a < 1f ) {
-            maintTitle.color = new Color( maintTitle.color.r, maintTitle.color.g, maintTitle.color.b, maintTitle.color.a + ( fadeSpeed * Time.deltaTime ) );
-            yield return null;
-        }
-        
-        // fix variants in the animation.
-        maintTitle.color = new Color( maintTitle.color.r, maintTitle.color.g, maintTitle.color.b, 1f );
+        // display main title.
+        gameTitle.DisplayTitle();
         yield return new WaitForSeconds( toWait );
 
         // display press space bar text.
