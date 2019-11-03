@@ -37,6 +37,8 @@ public class SceneCover : MonoBehaviour
 
         // fix variants in the animation.
         panel.color = new Color( panel.color.r, panel.color.g, panel.color.b, 1f );
+
+        Debug.Log( "called and run" );
     }
 
     /// <summary>

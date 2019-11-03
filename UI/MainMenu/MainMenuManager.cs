@@ -86,6 +86,7 @@ public class MainMenuManager : MonoBehaviour {
         audio.Play();
 
         // fade in scene cover for smoother transition.
+        sceneCover.gameObject.SetActive( true );
         StartCoroutine( sceneCover.FadeIn() );
 
         // load survival level.
