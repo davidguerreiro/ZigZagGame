@@ -61,7 +61,16 @@ public class PlayerModelBody : MonoBehaviour {
                 eyes[0].SetActive( true );
                 break;
         }
-    } 
+    }
+
+
+    /// <summary>
+    /// Display player interested
+    /// animation during the main
+    /// title screen.
+    /// </summary>
+    /// <returns>IEnumerator</returns>
+    /// TODO: To complete this method.
 
     /// <summary>
     /// Display player bouncing animation.

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallController : MonoBehaviour
-{   
+public class BallController : MonoBehaviour {   
     public static BallController instance;                  // Class instance to be used by other components.
 
     [SerializeField]
@@ -79,6 +78,15 @@ public class BallController : MonoBehaviour
     /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
     /// </summary>
     void FixedUpdate() {
+    }
+
+    /// <summary>
+    /// Check if the player has
+    /// started playing.
+    /// </summary>
+    /// <returns>bool</returns>
+    public bool PlayerHasStarted() {
+        return this.started;
     }
 
     /// <summary>
