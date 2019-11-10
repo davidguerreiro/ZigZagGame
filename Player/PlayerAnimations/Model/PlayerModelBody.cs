@@ -62,22 +62,14 @@ public class PlayerModelBody : MonoBehaviour {
                 break;
         }
     }
-
-
-    /// <summary>
-    /// Display player interested
-    /// animation during the main
-    /// title screen.
-    /// </summary>
-    /// <returns>IEnumerator</returns>
-    /// TODO: To complete this method.
+    
 
     /// <summary>
     /// Display player bouncing animation.
     /// </summary>
     /// <returns>void</returns>
     public void DisplayPlayerBouncingAnim() {
-        Utils.instance.TriggerAnimation( animation, "playerBouncing" );
+        Utils.instance.TriggerAnimation( animation, "playerBouncing", true );
     }
 
     /// <summary>

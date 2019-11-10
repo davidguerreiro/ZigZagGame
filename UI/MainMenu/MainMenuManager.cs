@@ -19,6 +19,7 @@ public class MainMenuManager : MonoBehaviour {
     public DescriptionPanel descriptionPanel;           // Description panel component class reference.
     public PressSpaceBar pressSpaceBarComponent;        // Press space bar game component class refernce.
     public MainMenu mainMenu;                           // Main menu game component class reference.
+    public PlayerModelBody playerModel;                 // Player model body class component reference.
 
 
 

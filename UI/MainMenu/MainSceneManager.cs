@@ -7,6 +7,7 @@ public class MainSceneManager : MonoBehaviour
     public SceneCover sceneCover;                           // Scene cover used to make the scene transition smoother.
     public Animation scenePlayerAnimation;                  // Player main scene animation component.
     private AudioSource audio;                              // Audio source component.
+    public PlayerModelBody playerModel;                     // Player model body class component reference.
     private bool readyForMenu = false;                      // Flag to control when the player can open the menu.
     private bool readyForTitle = false;                     // Flag to control when the game title and the press space bar text have to be displayed in the screen.
 
@@ -76,6 +77,9 @@ public class MainSceneManager : MonoBehaviour
         yield return new WaitForSeconds( 0.5f );
 
         readyForMenu = true;
+
+        // trigger random player animations in the menu coroutine.
+        StartCoroutine( DisplayRandomPlayerAnimations() );
     }
 
     /// <summary>
@@ -93,6 +97,23 @@ public class MainSceneManager : MonoBehaviour
         // display menus.
         StartCoroutine( MainMenuManager.instance.mainMenu.DisplayMainMenu() );
         StartCoroutine( MainMenuManager.instance.descriptionPanel.DisplayPanel() );
+    }
+
+    /// <summary>
+    /// Display random player animations
+    /// after the menu is displayed in
+    /// the screen.
+    /// </summary>
+    /// <returns>IEnumerator</returns>
+    private IEnumerator DisplayRandomPlayerAnimations() {
+
+        // endless loop - animaitons will be displayed until the user choose an option.
+        while ( true )  {
+            yield return new WaitForSeconds( 6f );
+            playerModel.DisplayPlayerInterestedAnim();
+            yield return new WaitForSeconds( 2f );
+            playerModel.DisplayPlayerBouncingAnim();
+        }
     }
     
 }
