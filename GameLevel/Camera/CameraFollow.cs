@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
-{
-    public GameObject ball;                     // GameObject to follow.
-    private Vector3 offset;                     // Difference between the ball and the camera.
-    public float lerpRate;                             // Movement speed.
-    public bool gameOver;                              // GameOver flag.
+public class CameraFollow : MonoBehaviour {
+    public GameObject ball;                             // GameObject to follow.
+    private Vector3 offset;                             // Difference between the ball and the camera.
+    public float lerpRate;                              // Movement speed.
+    public bool gameOver;                               // GameOver flag.
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         Init();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if ( ! gameOver ) {
             Follow();
         }
@@ -26,11 +23,17 @@ public class CameraFollow : MonoBehaviour
     /// <summary>
     /// Initialise method.
     /// </summary>
+    /// <returns>void</returns>
     private void Init() {
         offset = ball.transform.position - transform.position;
         gameOver = false;
     }
 
+    /// <summary>
+    /// Update camera position with
+    /// player movement.
+    /// </summary>
+    /// <returns>void</returns>
     private void Follow() {
         Vector3 pos = transform.position;
         Vector3 targetPos = ball.transform.position - offset;
