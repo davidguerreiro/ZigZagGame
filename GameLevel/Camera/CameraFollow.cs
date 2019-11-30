@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour {
     public GameObject ball;                             // GameObject to follow.
     private Vector3 offset;                             // Difference between the ball and the camera.
     public float lerpRate;                              // Movement speed.
-    public bool gameOver;                               // GameOver flag.
+    public bool gameOver;                               // GameOver flag.`
 
     // Start is called before the first frame update
     void Start() {
