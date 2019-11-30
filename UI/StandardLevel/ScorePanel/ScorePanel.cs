@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScorePanel : MonoBehaviour {
     private bool displayed = false;                                 // Flag to control whether the score panel is displayed.
-    private Animation animation;
+    private Animation animation;                                    // Animation component reference.
 
     // Start is called before the first frame update
     void Start() {

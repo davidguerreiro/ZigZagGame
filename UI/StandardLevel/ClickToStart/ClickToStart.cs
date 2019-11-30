@@ -23,13 +23,12 @@ public class ClickToStart : MonoBehaviour {
     /// <summary>
     /// Display click to
     /// start element animation.
-    /// TODO: Complete method when the animation
-    /// is completed.
     /// </summary>
     /// <returns>void</returns>
     public void DisplayElement() {
         // add code to display animation here.
-
+        Utils.instance.TriggerAnimation( animation, "Display" );
+        
         // play text flash animation.
         content.DisplayClickTextAnim();
     }
