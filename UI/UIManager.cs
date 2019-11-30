@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {  
     public static UIManager instance;               // Public instance for static calls from other components.
-    public GameObject TopBar;                       // UI top bar gameObject.
-    public GameObject scorePanel;                   // UI score panel gameObject.
+    public TopBar TopBar;                           // UI top bar class component reference.
+    public ScorePanel scorePanel;                   // UI score panel class component reference.
     public GameObject defeatedPanel;                // UI defeated panel gameObject.
-    public GameObject startText;                    // UI start text gameObject.
+    public ClickToStart startText;                  // UI click to start text class component reference.
+    public ControlsButton controlsButton;           // UI controls button class component reference.
     public Score score;                             // Score class.
     public Lifes lifes;                             // Lifes class.
+    public MainLevelScreenCover screenCover;        // Level screen cover class component reference.
     public GameObject stopGamePanel;                // Stop game panel gameObject reference.
     public HowToPlayPanel howToPlayPanel;           // How to play panel class component reference.
     private StopGamePanel stopGamePanelClass;       // Stop game panel class component reference.
@@ -85,6 +87,22 @@ public class UIManager : MonoBehaviour {
             StartCoroutine( stopGamePanelClass.HidePanel() );
             howToPlayPanel.HidePanel();
         }
+    }
+
+    /// <summary>
+    /// Enable screen cover gameObject.
+    /// </summary>
+    /// <returns>void</returns>
+    public void EnableSceneCover() {
+        screenCover.gameObject.SetActive( true );
+    }
+
+    /// <summary>
+    /// Disable screen cover gameObject.
+    /// </summary>
+    /// <returns>void</returns>
+    public void DisableSceneCover() {
+        screenCover.gameObject.SetActive( false );
     }
 
     /// <summary>

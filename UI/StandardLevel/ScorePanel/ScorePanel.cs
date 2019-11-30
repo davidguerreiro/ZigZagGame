@@ -24,7 +24,7 @@ public class ScorePanel : MonoBehaviour {
     /// </summary>
     /// <returns>void</returns>
     public void DisplayPanel() {
-        Utils.instance.TriggerAnimation( animation, "DisplayPanel" );
+        Utils.instance.TriggerAnimation( animation, "DisplayScorePanel" );
     }
 
     /// <summary>
