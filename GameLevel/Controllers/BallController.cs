@@ -28,9 +28,7 @@ public class BallController : MonoBehaviour {
     private float boostAcummulationSpeed = 0.08f;           // Reduced speed animation time.
     private PlayerModel playerModel;                        // Player 3D model logic class component.
     private AudioSource audioSource;                        // AudioSource component.
-    
-    
-
+    private bool canPlay;                                   // Flag to control whether the player can control the character.
     Rigidbody rb;                           // Rigibody component.
 
     /// <summary>
@@ -60,6 +58,9 @@ public class BallController : MonoBehaviour {
 
         // get audio component.
         audioSource = GetComponent<AudioSource>();
+
+        // set canPlay initial value - which is false because the player cannot move the ball until the UI is fully loaded in the game scene.
+        this.canPlay = false;
     }
 
     // Update is called once per frame.
@@ -72,6 +73,25 @@ public class BallController : MonoBehaviour {
 
         // check if player can boost the speed and init boost if so.
         CheckInputForBoostMechanic();
+    }
+
+    /// <summary>
+    /// Check if player is
+    /// ready to lisen for player
+    /// input.
+    /// </summary>
+    /// <returns>bool</returns>
+    public bool IsPlayable() {
+        return this.canPlay;
+    }
+
+    /// <summary>
+    /// Set playable status.
+    /// </summary>
+    /// <param name="newStatus">bool - new playable status</param>
+    /// <returns>void</returns>
+    public void SetPlayableStatus( bool newStatus ) {
+        this.canPlay = newStatus;
     }
 
     /// <summary>
@@ -94,17 +114,21 @@ public class BallController : MonoBehaviour {
     /// mechanic
     /// </summary>
     private void CheckInputForBoostMechanic() {
-        // check if player can boost the speed and init boost if so.
-        if ( Input.GetMouseButton( 1 ) && ! accumulating && canBoost ) {
-            accumulating = true;
-            StartCoroutine( ReduceSpeed() );
-            StartCoroutine( AccumulateTime() );
-        }
+        // check if playable.
+        if ( this.canPlay ) {
 
-        // check if the player stops accumulating speed so the boost is released.
-        if ( Input.GetMouseButtonUp( 1 ) && accumulating && ! inBoost ) {
-            accumulating = false;
-            StartCoroutine( ReleaseBost() );
+            // check if player can boost the speed and init boost if so.
+            if ( this.canPlay && Input.GetMouseButton( 1 ) && ! accumulating && canBoost ) {
+                accumulating = true;
+                StartCoroutine( ReduceSpeed() );
+                StartCoroutine( AccumulateTime() );
+            }
+
+            // check if the player stops accumulating speed so the boost is released.
+            if ( this.canPlay && Input.GetMouseButtonUp( 1 ) && accumulating && ! inBoost ) {
+                accumulating = false;
+                StartCoroutine( ReleaseBost() );
+            }
         }
     }
 
@@ -143,18 +167,20 @@ public class BallController : MonoBehaviour {
     /// User input controller
     /// </summary>
     private void InputConroller() {
-
-        // Check wheter the user starts playing.
-        if ( ! started && ! UIManager.instance.howToPlayPanel.isDisplayed ) {
-            if ( Input.GetMouseButtonDown( 0 ) ) {
-                Init();
-                started = true;
+        // check if playable.
+        if ( this.canPlay ) {
+            // Check wheter the user starts playing.
+            if ( ! started && ! UIManager.instance.howToPlayPanel.isDisplayed ) {
+                if ( Input.GetMouseButtonDown( 0 ) ) {
+                    Init();
+                    started = true;
+                }
             }
-        }
 
-        // Change ball direction when clicking.
-        if ( Input.GetMouseButtonDown(0) && ! gameOver && ! accumulating ) {
-            SwitchDirection();
+            // Change ball direction when clicking.
+            if ( Input.GetMouseButtonDown(0) && ! gameOver && ! accumulating ) {
+                SwitchDirection();
+            }
         }
     }
 

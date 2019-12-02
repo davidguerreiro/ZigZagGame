@@ -47,6 +47,9 @@ public class LevelManager : MonoBehaviour {
 
         // disable scene cover so user can click start playing button.
         UIManager.instance.DisableSceneCover();
+
+        // set player character as playable to the player can start playing the game.
+        BallController.instance.SetPlayableStatus( true );
     }
     
 

@@ -56,8 +56,6 @@ public class PlayerModel : MonoBehaviour
     /// </summary>
     public IEnumerator TurnLeft() {
 
-        // TODO: Add runnig fast animation.
-
         // stop speed animation if applicable.
         if ( twoDEffects.inAnimation ) {
             twoDEffects.StopReleaseEffectAnim();
