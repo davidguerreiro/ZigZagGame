@@ -12,6 +12,7 @@ public class BallController : MonoBehaviour {
     bool started;                                           // Wheter the game has started or not.
     bool gameOver;                                          // Wheter the game enters in game over mode.
     public GameObject particle;                             // Particle effect used when a diamond is collected by the user.
+    public PlatformSpawner platformSpawner;                 // Platform spawner class component reference.
     public bool accumulating = false;                       // Wheter the ball is acummulating speed to be released.
     public bool inBoost = false;                            // Wheter the ball is in boost mode. During boost mode score you get by taking collectibles is multiplied by 2.
     public bool canBoost = false;                           // Wheter the player can use the boost.
@@ -228,6 +229,8 @@ public class BallController : MonoBehaviour {
         // display dust animation.
         playerModel.EnableDust();
 
+        // allow decoratives to be displayed in the game scene.
+        platformSpawner.EnableDecoratives();
 
         // start game.
         // GameManager.instance.StartGame();

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spectator : MonoBehaviour {
 
     public Material[] colors;                                   // Possible materials to appy to the spectator.
-    public Renderer body;                                       // Spectator's body renderer component.
+    private Renderer body;                                       // Spectator's body renderer component.
     private Animation animation;                                // Animation component reference.
     private Transform player;                                  // Player gameObject.
 
@@ -71,10 +71,13 @@ public class Spectator : MonoBehaviour {
         // get a reference of player transform component to ensure spectator is all the time looking at the player.
         player = GameObject.FindGameObjectWithTag( "Player" ).GetComponent<Transform>();
 
+        // get children renderer component.
+        body = GetComponentInChildren<Renderer>(); 
+
         // set spectator body color.
         SetBodyColor();
 
         // display bouncing animation.
-        // Bounce(); 
+        // Bounce();
     }
 }
