@@ -175,6 +175,9 @@ public class BallController : MonoBehaviour {
                 if ( Input.GetMouseButtonDown( 0 ) ) {
                     Init();
                     started = true;
+
+                    // hide how to play button.
+                    UIManager.instance.controlsButton.gameObject.SetActive( false );
                 }
             }
 
