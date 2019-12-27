@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TextComponent : MonoBehaviour {
-
     private Text content;                       // Text component reference.
 
     // Start is called before the first frame update

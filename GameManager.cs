@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;         // Instance to make the gameManager accessible from other scripts.
     public int currentLevel = 1;                // Current level the player is playing.
     public int lifes = 3;                       // Current lifes the played has.
+    public GameOver gameOverPanel;              // Game over panel class component reference.
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -21,8 +22,17 @@ public class GameManager : MonoBehaviour
     /// Player is defeated.
     /// </summary>
     public void PlayerDefeated() {
+        /*
         if ( lifes > 0 ) {
             UIManager.instance.DisplayDefeatedPanel();
+        }
+        */
+
+        // display gameOver panel animation.
+        gameOverPanel.gameObject.SetActive( true );
+        
+        if ( ! gameOverPanel.IsDisplayed() ) {
+            StartCoroutine( gameOverPanel.DisplayGameOver() );
         }
     }
     
