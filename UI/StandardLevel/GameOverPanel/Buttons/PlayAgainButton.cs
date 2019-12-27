@@ -13,7 +13,9 @@ public class PlayAgainButton : MonoBehaviour {
     /// </summary>
     /// <returns>void</returns>
     public void ResetLevel() {
-        SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+        if ( GetComponent<AnimationComponent>().IsDisplayed() ) {
+            SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+        }
     }
 
 }

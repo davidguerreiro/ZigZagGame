@@ -10,6 +10,8 @@ public class MainMenuButton : MonoBehaviour {
     /// </summary>
     /// </returns>void</returns>
     public void LoadMainMenu() {
-        SceneManager.LoadScene( "MainMenu" );
+        if ( GetComponent<AnimationComponent>().IsDisplayed() ) {
+            SceneManager.LoadScene( "MainMenu" );
+        }
     }
 }

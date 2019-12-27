@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour {
-    private bool displayed;                           // Flag to control when the gameOver panel is displayed.
+    private bool displayed;                             // Flag to control when the gameOver panel is displayed.
     public TitleWrapper titleWrapper;                   // Title wrapper class component reference.
     public DataPanel dataPanel;                         // Data panel class component reference.
     public AnimationComponent playAgainButton;          // Play again button animation component reference.
